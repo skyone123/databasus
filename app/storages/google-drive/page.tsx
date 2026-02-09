@@ -113,6 +113,23 @@ export default function GoogleDrivePage() {
                 in via your Google Account.
               </p>
 
+              <div className="rounded-lg border border-[#ffffff20] bg-[#1f2937] px-4 pt-4 my-6">
+                <p className="text-gray-300 m-0">
+                  <strong className="text-amber-400">Important:</strong> To
+                  connect Google Drive, your Databasus instance must be running
+                  under HTTPS. For more information on setting up HTTPS, see the{" "}
+                  <a
+                    href="/installation#caddy-reverse-proxy"
+                    className="text-blue-400 hover:text-blue-300"
+                  >
+                    Caddy reverse proxy setup guide →
+                  </a>
+                  <br />
+                  For this guide, we&apos;ll assume your Databasus instance is
+                  running at <code>databasus.yourdomain.com</code>.
+                </p>
+              </div>
+
               <h2 id="create-google-cloud-project">
                 Create Google Cloud project
               </h2>
@@ -195,18 +212,27 @@ export default function GoogleDrivePage() {
                 </li>
                 <li>
                   <strong>Authorized JavaScript origins:</strong>{" "}
-                  <code>https://databasus.com</code>
+                  <code>https://databasus.yourdomain.com</code>
                 </li>
                 <li>
                   <strong>Authorized redirect URIs:</strong>{" "}
-                  <code>https://databasus.com/storages/google-oauth</code>
+                  <code>
+                    https://databasus.yourdomain.com/storages/google-oauth
+                  </code>
                 </li>
               </ul>
+
+              <p>
+                <strong>Note:</strong> Replace{" "}
+                <code>databasus.yourdomain.com</code> with your actual domain
+                where Databasus is hosted (e.g., <code>backup.example.com</code>
+                ).
+              </p>
 
               <p>Then copy the credentials:</p>
 
               <Image
-                src="/images/google-drive-storage/image-4.webp"
+                src="/images/google-drive-storage/image-4.png"
                 alt="Configure application settings - part 1"
                 width={1000}
                 height={600}
