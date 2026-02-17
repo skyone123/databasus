@@ -99,6 +99,10 @@ Content: Comprehensive guide on using Databasus for MySQL and MariaDB backups. E
 URL: /mongodb-backup
 Content: Complete guide on using Databasus for MongoDB backups. Explains how to backup MongoDB databases using mongodump under the hood, with support for MongoDB versions 4, 5, 6, 7 and 8. Includes information about scheduled backups, BSON archive storage, cloud storage integration, notifications, compression with gzip, AES-256-GCM encryption and compatibility with MongoDB Atlas, replica sets and self-hosted deployments.
 
+### How to restore from backup without Databasus
+URL: /how-to-recover-without-databasus
+Content: Step-by-step guide on manually restoring database backups without Databasus. Demonstrates no vendor lock-in by explaining how to decrypt and restore backups using standard tools and your secret key. Includes Python decryption script for AES-256-GCM encrypted backups with PBKDF2 key derivation, restoration instructions for PostgreSQL (pg_restore), MySQL (mysqldump with zstd decompression), MariaDB (mariadb-dump with zstd) and MongoDB (mongorestore with gzip). Covers file structure, metadata files, encryption details and troubleshooting. Emphasizes data ownership and ability to recover backups even without access to Databasus UI.
+
 ## Technical Details
 
 ### System Requirements

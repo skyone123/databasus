@@ -199,6 +199,14 @@ export default function Index() {
                   text: "Databasus supports PostgreSQL, MySQL, MariaDB and MongoDB. You can backup and restore all of them with the same tool.",
                 },
               },
+              {
+                "@type": "Question",
+                name: "Can I restore backups without Databasus?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Yes! You can restore backups directly from storage (like S3, Google Drive, etc.) without Databasus itself. There is no vendor lock-in, even on this open source tool. With just your secret.key file, you can decrypt and restore any backup manually using standard database tools. This means if your Databasus instance is unavailable or you lose access to it, your backups remain fully recoverable.",
+                },
+              },
             ],
           }),
         }}
@@ -1513,6 +1521,32 @@ export default function Index() {
                   . The community is a great place to ask questions, share
                   experiences, get help with configuration and stay updated with
                   the latest features and releases.
+                </>
+              }
+            />
+            <FaqItem
+              number="16"
+              question="Can I restore backups without Databasus?"
+              answer={
+                <>
+                  Yes! You can restore backups directly from storage (like S3,
+                  Google Drive, etc.) without Databasus itself. There is no
+                  vendor lock-in, even on this open source tool. With just your{" "}
+                  <code>secret.key</code> file, you can decrypt and restore any
+                  backup manually using standard database tools.
+                  <br />
+                  <br />
+                  This means if your Databasus instance is unavailable or you
+                  lose access to it, your backups remain fully recoverable. See
+                  our{" "}
+                  <a
+                    href="/how-to-recover-without-databasus"
+                    className="text-blue-400 hover:text-blue-600"
+                  >
+                    manual recovery guide
+                  </a>{" "}
+                  for detailed step-by-step instructions on how to decrypt and
+                  restore backups without Databasus.
                 </>
               }
             />

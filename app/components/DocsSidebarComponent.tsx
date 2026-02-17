@@ -44,6 +44,10 @@ const navItems: NavItem[] = [
     href: "/security",
   },
   {
+    title: "Manual recovery from backup without Databasus",
+    href: "/how-to-recover-without-databasus",
+  },
+  {
     title: "FAQ",
     href: "/faq",
     children: [

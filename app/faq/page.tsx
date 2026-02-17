@@ -84,7 +84,7 @@ export default function FAQPage() {
                 name: "How to backup Databasus itself?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "To backup Databasus, go to /opt/databasus (or the folder where you installed it), then navigate to the databasus-data directory. You need to backup the secret.key file (encryption key for credentials) and the /pgdata folder (internal database containing configurations and backup metadata). If you use local backups, you can also backup the backups folder. Note that secret.key alone is not sufficient to restore encrypted backups — you also need /pgdata which contains the encryption metadata. To restore, recreate this folder structure on another server.",
+                  text: "To backup Databasus, go to /opt/databasus (or the folder where you installed it), then navigate to the databasus-data directory. You need to backup the secret.key file (encryption key for credentials) and the /pgdata folder (internal database containing configurations and backup metadata). There are two recovery scenarios: 1) You can recover database backups using only secret.key without Databasus UI (see manual recovery guide), 2) To restore Databasus UI with all configurations and history, you need both secret.key and /pgdata folder. To restore, recreate this folder structure on another server.",
                 },
               },
             ],
@@ -330,11 +330,29 @@ export default function FAQPage() {
               </p>
 
               <p>
-                <strong>Note:</strong> The <code>secret.key</code> file alone is
-                not sufficient to restore encrypted backups. You also need the{" "}
-                <code>/pgdata</code> folder, which contains the encryption
-                metadata required for decryption.
+                <strong>Important:</strong> There are two different scenarios for
+                recovery:
               </p>
+
+              <ul>
+                <li>
+                  <strong>Recover backups without Databasus UI:</strong> You can
+                  recover your database backups using only the <code>secret.key</code> file,
+                  without needing Databasus or its internal data. See the{" "}
+                  <a href="/how-to-recover-without-databasus">
+                    manual recovery guide
+                  </a>{" "}
+                  for detailed instructions.
+                </li>
+                <li>
+                  <strong>Restore Databasus UI and all configurations:</strong> If
+                  you want to restore the Databasus interface with all your
+                  configurations, scheduled backups and backup history, you need
+                  to backup both <code>secret.key</code> and the <code>/pgdata</code>{" "}
+                  folder (which contains the encryption metadata and all Databasus
+                  configurations).
+                </li>
+              </ul>
 
               <p>
                 <strong>To restore Databasus on another server:</strong> simply
