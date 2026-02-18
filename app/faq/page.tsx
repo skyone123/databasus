@@ -52,7 +52,7 @@ export default function FAQPage() {
                 name: "Why does Databasus not use raw SQL dump format for PostgreSQL?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "Databasus uses the directory format with zstd compression because it provides the most efficient backup and restore speed after extensive testing. The directory format with zstd compression level 5 offers the optimal balance between backup creation speed, restore speed and file size.",
+                  text: "Databasus uses the custom format with zstd compression because it provides the most efficient backup and restore speed after extensive testing. The custom format with zstd compression level 5 offers the optimal balance between backup creation speed, restore speed and file size.",
                 },
               },
               {
@@ -115,7 +115,7 @@ export default function FAQPage() {
 
               <p>
                 Databasus uses the <code>pg_dump</code>&apos;s{" "}
-                <strong>directory format</strong> with{" "}
+                <strong>custom format</strong> with{" "}
                 <strong>zstd compression at level 5</strong> instead of the
                 plain SQL format because it provides the most efficient balance
                 between:
