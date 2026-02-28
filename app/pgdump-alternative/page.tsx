@@ -7,7 +7,7 @@ import DocTableOfContentComponent from "../components/DocTableOfContentComponent
 export const metadata: Metadata = {
   title: "pg_dump Alternative - Databasus PostgreSQL Backup Tool",
   description:
-    "Databasus is built on pg_dump and extends its features with backups management, a web UI, automated scheduling, cloud storage, notifications, team collaborationand encryption.",
+    "Databasus is built on pg_dump and extends its features with backups management, a web UI, automated scheduling, cloud storage, notifications, team collaboration and encryption.",
   keywords: [
     "pg_dump alternative",
     "pg_dump GUI",
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "pg_dump Alternative - Databasus PostgreSQL Backup Tool",
     description:
-      "Databasus is built on pg_dump and extends its features with backups management, a web UI, automated scheduling, cloud storage, notifications, team collaborationand encryption.",
+      "Databasus is built on pg_dump and extends its features with backups management, a web UI, automated scheduling, cloud storage, notifications, team collaboration and encryption.",
     type: "article",
     url: "https://databasus.com/pgdump-alternative",
   },
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     card: "summary",
     title: "pg_dump Alternative - Databasus PostgreSQL Backup Tool",
     description:
-      "Databasus is built on pg_dump and extends its features with backups management, a web UI, automated scheduling, cloud storage, notifications, team collaborationand encryption.",
+      "Databasus is built on pg_dump and extends its features with backups management, a web UI, automated scheduling, cloud storage, notifications, team collaboration and encryption.",
   },
   alternates: {
     canonical: "https://databasus.com/pgdump-alternative",
@@ -51,7 +51,7 @@ export default function PgDumpAlternativePage() {
             "@type": "TechArticle",
             headline: "pg_dump Alternative - Databasus PostgreSQL Backup Tool",
             description:
-              "A comprehensive guide to Databasus as a pg_dump alternative, explaining how it builds on pg_dump and extends its capabilities with automation, cloud storage, notificationsand team features.",
+              "A comprehensive guide to Databasus as a pg_dump alternative, explaining how it builds on pg_dump and extends its capabilities with automation, cloud storage, notifications and team features.",
             author: {
               "@type": "Organization",
               name: "Databasus",
@@ -85,7 +85,7 @@ export default function PgDumpAlternativePage() {
                 <code>pg_dump</code>. Rather than replacing <code>pg_dump</code>
                 , Databasus extends its capabilities with backups management, a
                 web interface, automated scheduling, cloud storage integration,
-                notifications, team collaboration featuresand built-in
+                notifications, team collaboration features and built-in
                 encryption.
               </p>
 
@@ -195,7 +195,7 @@ export default function PgDumpAlternativePage() {
                 </li>
                 <li>
                   <strong>Selective backups</strong>: Can export specific
-                  tables, schemasor entire databases.
+                  tables, schemas or entire databases.
                 </li>
                 <li>
                   <strong>Consistent snapshots</strong>: Uses PostgreSQL&apos;s
@@ -203,11 +203,11 @@ export default function PgDumpAlternativePage() {
                 </li>
                 <li>
                   <strong>Widely supported</strong>: Available on every
-                  PostgreSQL installation, well-documentedand battle-tested.
+                  PostgreSQL installation, well-documented and battle-tested.
                 </li>
                 <li>
                   <strong>Flexible output formats</strong>: Plain SQL, custom,
-                  directoryor tar formats.
+                  directory or tar formats.
                 </li>
               </ul>
 
@@ -259,7 +259,7 @@ export default function PgDumpAlternativePage() {
                   When you trigger a backup in Databasus, it executes{" "}
                   <code className="bg-[#374151] text-gray-200">pg_dump</code>{" "}
                   with optimized parameters, then handles compression,
-                  encryptionand upload to your configured storage destination.
+                  encryption and upload to your configured storage destination.
                 </p>
               </div>
 
@@ -344,7 +344,7 @@ fi`}</code>
               </div>
 
               <p>
-                This script needs to be maintained, testedand monitored. Each
+                This script needs to be maintained, tested and monitored. Each
                 database requires its own cron entry.
               </p>
 
@@ -367,7 +367,7 @@ fi`}</code>
                 </li>
                 <li>
                   <strong>Cloud upload</strong>: Direct upload to S3, Google
-                  Drive, Cloudflare R2, Azureor other destinations.
+                  Drive, Cloudflare R2, Azure or other destinations.
                 </li>
                 <li>
                   <strong>Retention policies</strong>: Automatic cleanup of old
@@ -403,7 +403,7 @@ fi`}</code>
               </ul>
 
               <p>
-                Each database can have its own storage destinationand you can
+                Each database can have its own storage destination and you can
                 configure multiple destinations for redundancy.
               </p>
 
@@ -450,7 +450,7 @@ fi`}</code>
 
               <p>
                 Configure which events trigger notifications: backup success,
-                backup failureor both.
+                backup failure or both.
               </p>
 
               <p>
@@ -479,7 +479,7 @@ fi`}</code>
                 </li>
                 <li>
                   <strong>Role-based access control</strong>: Assign viewer,
-                  editoror admin permissions to control what each team member
+                  editor or admin permissions to control what each team member
                   can do.
                 </li>
                 <li>
@@ -535,7 +535,7 @@ fi`}</code>
                 <li>
                   <strong>Unique backup encryption</strong>: Each backup file is
                   encrypted with a unique key derived from master key, backup
-                  IDand random salt.
+                  ID and random salt.
                 </li>
                 <li>
                   <strong>Read-only database access</strong>: Enforces SELECT
@@ -615,7 +615,7 @@ fi`}</code>
               <ul>
                 <li>
                   <strong>One-line script</strong>: Installs Docker (if needed),
-                  sets up Databasusand configures automatic startup.
+                  sets up Databasus and configures automatic startup.
                 </li>
                 <li>
                   <strong>Docker run</strong>: Single command to start with
@@ -694,7 +694,7 @@ fi`}</code>
                 Databasus doesn&apos;t replace <code>pg_dump</code> — it wraps
                 it with the features needed for production backup management.
                 You&apos;re still getting <code>pg_dump</code>&apos;s reliable,
-                portable logical backups, with automation, securityand team
+                portable logical backups, with automation, security and team
                 features built on top.
               </p>
             </article>

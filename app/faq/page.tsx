@@ -76,7 +76,7 @@ export default function FAQPage() {
                 name: "How is AI used in Databasus development?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "AI is used as a helper for verification of code quality and searching for vulnerabilities, cleaning up and improving documentation, assistance during development, and double-checking PRs after human review. AI is NOT used for writing entire code, vibe code approach, code without line-by-line verification, or code without tests. The project has solid test coverage, CI/CD pipeline automation, and verification by experienced developers. AI is just an assistant - the work is done by developers.",
+                  text: "AI is used as a helper for verification of code quality and searching for vulnerabilities, cleaning up and improving documentation, assistance during development and double-checking PRs after human review. AI is NOT used for writing entire code, vibe code approach, code without line-by-line verification or code without tests. The project has solid test coverage, CI/CD pipeline automation and verification by experienced developers. AI is just an assistant - the work is done by developers.",
                 },
               },
               {
@@ -192,8 +192,8 @@ export default function FAQPage() {
                 </li>
                 <li>
                   <strong>Built-in cloud PITR</strong> — cloud providers already
-                  offer native PITR capabilities, and even they typically
-                  default to hourly or daily granularity
+                  offer native PITR capabilities and even they typically default
+                  to hourly or daily granularity
                 </li>
                 <li>
                   <strong>Practical sufficiency</strong> — for 99% of projects,
@@ -330,27 +330,28 @@ export default function FAQPage() {
               </p>
 
               <p>
-                <strong>Important:</strong> There are two different scenarios for
-                recovery:
+                <strong>Important:</strong> There are two different scenarios
+                for recovery:
               </p>
 
               <ul>
                 <li>
                   <strong>Recover backups without Databasus UI:</strong> You can
-                  recover your database backups using only the <code>secret.key</code> file,
-                  without needing Databasus or its internal data. See the{" "}
+                  recover your database backups using only the{" "}
+                  <code>secret.key</code> file, without needing Databasus or its
+                  internal data. See the{" "}
                   <a href="/how-to-recover-without-databasus">
                     manual recovery guide
                   </a>{" "}
                   for detailed instructions.
                 </li>
                 <li>
-                  <strong>Restore Databasus UI and all configurations:</strong> If
-                  you want to restore the Databasus interface with all your
+                  <strong>Restore Databasus UI and all configurations:</strong>{" "}
+                  If you want to restore the Databasus interface with all your
                   configurations, scheduled backups and backup history, you need
-                  to backup both <code>secret.key</code> and the <code>/pgdata</code>{" "}
-                  folder (which contains the encryption metadata and all Databasus
-                  configurations).
+                  to backup both <code>secret.key</code> and the{" "}
+                  <code>/pgdata</code> folder (which contains the encryption
+                  metadata and all Databasus configurations).
                 </li>
               </ul>
 
@@ -359,6 +360,226 @@ export default function FAQPage() {
                 recreate the <code>databasus-data</code> folder structure with
                 the backed up files and start Databasus.
               </p>
+
+              <h2 id="why-internal-postgres-valkey">
+                Why are PostgreSQL and Valkey packaged inside the container?
+              </h2>
+
+              <p>
+                Databasus uses PostgreSQL as its internal storage (backup
+                metadata, database configurations, audit logs, etc.) and Valkey
+                for caching. Both are bundled inside the image. Here is why:
+              </p>
+
+              <p>
+                <strong>For users:</strong>
+              </p>
+
+              <ul>
+                <li>
+                  <strong>You only pull one image</strong> — no extra configs,
+                  no managing other images, no tracking internal service
+                  versions, no environment variables to set. Just run{" "}
+                  <code>docker run</code>, even if you manage hundreds of
+                  databases.
+                </li>
+                <li>
+                  <strong>Auto-update covers everything</strong> — enable
+                  auto-update for the Databasus image and forget about it. There
+                  are no separate upgrade guides for internal services and no
+                  multiple image versions to keep in sync.
+                </li>
+                <li>
+                  <strong>
+                    The <a href="/faq#backup-databasus">backup guide</a> just
+                    works
+                  </strong>{" "}
+                  — it is written around the internal PostgreSQL. With an
+                  external database you would have to figure out its backup
+                  separately.
+                </li>
+              </ul>
+
+              <p>
+                <strong>For Databasus maintainers:</strong>
+              </p>
+
+              <ul>
+                <li>
+                  <strong>We know exactly what is inside the image</strong> — we
+                  control migrations, extensions and service configuration. That
+                  means we can safely bump internal service versions without
+                  breaking compatibility and stay focused on development.
+                </li>
+                <li>
+                  <strong>
+                    Users never have to touch their compose files for upgrades
+                  </strong>{" "}
+                  — PostgreSQL and Valkey versions are updated inside the image.
+                  With external services, many users would skip or delay upgrade
+                  steps and run into compatibility issues across versions.
+                </li>
+              </ul>
+
+              <p>
+                So, summing up, it is reasonable approach for projects which
+                focus on simple UX and do not face hunders of RPS. For example,
+                GitLab CE follows same approach.
+              </p>
+
+              <p>
+                <strong>What about performance overhead?</strong> — there is
+                none worth noting. Databasus is network-intensive (uploading and
+                downloading backup files to remote storage), not
+                database-intensive. The internal PostgreSQL typically use
+                100–150 MB of RAM for hundreds of backup jobs across hundreds of
+                databases with millions of backups records. If you increase your
+                server resources, it will increase accordingly so there is no
+                chance to reach vertical scaling limits.
+                <br />
+                <br />
+                Both services are only accessible inside the container
+                (PostgreSQL runs on port <code>5437</code>, Valkey binds to{" "}
+                <code>127.0.0.1</code> only) and are never exposed externally.
+              </p>
+
+              <h3 id="external-postgres-valkey">
+                I don&apos;t care and still want to use my external PostgreSQL
+                or Valkey
+              </h3>
+
+              <div className="my-4 rounded-r border-l-4 border-red-500 bg-red-500/10 p-4 pb-1">
+                <p className="m-0">
+                  <strong>
+                    This is not a tested or supported configuration.
+                  </strong>{" "}
+                  We do not run migration tests against external services, so
+                  your instance may break on the next upgrade with no migration
+                  path provided. If you understand the risks — the variables are
+                  below.
+                </p>
+              </div>
+
+              <p>
+                The only reason we use external services ourselves is the
+                Databasus playground — it runs on a cluster of distributed
+                servers that together handle up to 100 Gbit/s of throughput, so
+                all nodes need to share the same database.
+                <br />
+                <br />
+                Why do we use a multi-node cluster for the playground, but not
+                recommend it to you even you have hundreds of DBs? Our
+                playground is a public service used by thousands of users
+                (because Databasus is the most popular PostgreSQL backup tool
+                now). Because it is public, we also face DDoS attacks and need
+                far higher throughput than any typical company would. It&apos;s
+                not just production use, it&apos;s permanent defence 🛡️. You are
+                almost certainly not running anything like this.
+                <br />
+                <br />
+                Actually, we don&apos;t know which company needs to backup
+                thousands of DBs like our playground. Usual production use of
+                Databasus is from a couple of databases to hundreds of databases
+                (in DBA outsourcing companies)
+                <br />
+                <br />
+                Anyway, if you genuinely face the same situation as we — use
+                variables below (we do not lock this ability despite it&apos;s
+                hard to maintain it), but lock Databasus version before. By the
+                way, for a regular single-server installation this adds
+                complexity with no benefit. For internal backuping of our DBs we
+                also use regular Databasus installation with internal PostgreSQL
+                and Valkey.
+              </p>
+
+              <p>
+                If you still want to proceed, here are the environment variables
+                that control this:
+              </p>
+
+              <p>
+                <strong>External PostgreSQL:</strong>
+              </p>
+
+              <ul>
+                <li>
+                  <code>DATABASE_DSN</code> — full PostgreSQL connection string.
+                  Example:{" "}
+                  <code>postgresql://user:password@host:5432/databasus</code>
+                </li>
+              </ul>
+
+              <p>
+                <strong>External Valkey:</strong>
+              </p>
+
+              <ul>
+                <li>
+                  <code>VALKEY_HOST</code> — hostname of your Valkey instance
+                </li>
+                <li>
+                  <code>VALKEY_PORT</code> — port (default <code>6379</code>)
+                </li>
+                <li>
+                  <code>VALKEY_USERNAME</code> — username, leave empty if not
+                  set
+                </li>
+                <li>
+                  <code>VALKEY_PASSWORD</code> — password
+                </li>
+                <li>
+                  <code>VALKEY_IS_SSL</code> — <code>true</code> or{" "}
+                  <code>false</code>
+                </li>
+              </ul>
+
+              <h3 id="distributed-ha">
+                What if I need distributed stateless HA?
+              </h3>
+
+              <p>
+                If your goal is a fully distributed, stateless HA setup where
+                multiple application nodes share the same PostgreSQL and Valkey
+                instances — neither Databasus, WAL-G, nor pgBackRest are the
+                right tools for that. Those are backup tools, not cluster
+                orchestrators.
+              </p>
+
+              <p>
+                For distributed PostgreSQL HA you should look at purpose-built
+                Kubernetes operators:
+              </p>
+
+              <ul>
+                <li>
+                  <strong>
+                    <a
+                      href="https://cloudnative-pg.io"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      CloudNativePG (CNPG)
+                    </a>{" "}
+                    + Barman Cloud
+                  </strong>{" "}
+                  — the CNCF-backed operator with built-in WAL archiving and
+                  backup to object storage via Barman Cloud
+                </li>
+                <li>
+                  <strong>
+                    <a
+                      href="https://access.crunchydata.com/documentation/postgres-operator/latest/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      PGO (Crunchy Postgres Operator)
+                    </a>{" "}
+                    + object storage
+                  </strong>{" "}
+                  — another mature operator with pgBackRest integration and
+                  S3-compatible storage support
+                </li>
+              </ul>
             </article>
           </div>
         </main>
