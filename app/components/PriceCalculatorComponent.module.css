@@ -1,0 +1,41 @@
+.calcSlider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: #1f2937;
+  outline: none;
+  cursor: pointer;
+}
+
+.calcSlider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #155dfc;
+  border: 2px solid #fff;
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+
+.calcSlider::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+
+.calcSlider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #155dfc;
+  border: 2px solid #fff;
+  cursor: pointer;
+}
+
+.calcSlider::-moz-range-track {
+  height: 6px;
+  border-radius: 3px;
+  background: #1f2937;
+}
