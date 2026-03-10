@@ -151,26 +151,6 @@ export default function TermsOfUseCloudPage() {
                   date
                 </li>
                 <li>
-                  You may cancel your subscription and request a full refund
-                  within <strong>14 days</strong> of the initial purchase,
-                  without giving any reason. To request a refund, contact us at{" "}
-                  <a
-                    href="mailto:info@databasus.com"
-                    className="text-blue-500 hover:text-blue-600"
-                  >
-                    info@databasus.com
-                  </a>
-                  . Refunds will be processed within 14 days of receiving your
-                  cancellation request, using the same payment method as the
-                  original transaction
-                </li>
-                <li>
-                  The 14-day refund right applies to the initial subscription
-                  purchase only and does not apply upon each automatic renewal.
-                  There are no refunds for unused portions of a billing period
-                  after the 14-day cancellation window has passed
-                </li>
-                <li>
                   If a payment fails, your account may be{" "}
                   <strong>immediately suspended</strong> until the outstanding
                   balance is resolved. We are not liable for any data loss or
@@ -182,7 +162,45 @@ export default function TermsOfUseCloudPage() {
                 </li>
               </ul>
 
-              <h2 id="user-responsibilities">7. User responsibilities</h2>
+              <h2 id="refund-policy">7. Refund policy</h2>
+
+              <ul>
+                <li>
+                  You may cancel your subscription and request a full refund
+                  within <strong>14 days</strong> of the initial purchase,
+                  without giving any reason. To request a refund, contact us at{" "}
+                  <a
+                    href="mailto:info@databasus.com"
+                    className="text-blue-500 hover:text-blue-600"
+                  >
+                    info@databasus.com
+                  </a>
+                </li>
+                <li>
+                  Refunds will be processed within 14 days of receiving your
+                  cancellation request, using the same payment method as the
+                  original transaction
+                </li>
+                <li>
+                  The 14-day refund right applies to the initial subscription
+                  purchase only and does not apply upon each automatic renewal
+                </li>
+                <li>
+                  There are no refunds for unused portions of a billing period
+                  after the 14-day cancellation window has passed
+                </li>
+                <li>
+                  To request a refund or cancel your subscription, email us at{" "}
+                  <a
+                    href="mailto:info@databasus.com"
+                    className="text-blue-500 hover:text-blue-600"
+                  >
+                    info@databasus.com
+                  </a>
+                </li>
+              </ul>
+
+              <h2 id="user-responsibilities">8. User responsibilities</h2>
 
               <p>You are solely responsible for:</p>
 
@@ -215,7 +233,7 @@ export default function TermsOfUseCloudPage() {
                 </li>
               </ul>
 
-              <h2 id="backup-disclaimer">8. Backup service disclaimer</h2>
+              <h2 id="backup-disclaimer">9. Backup service disclaimer</h2>
 
               <p>
                 <strong>
@@ -269,7 +287,7 @@ export default function TermsOfUseCloudPage() {
                 them and taking appropriate action when issues arise.
               </p>
 
-              <h2 id="acceptable-use">9. Acceptable use</h2>
+              <h2 id="acceptable-use">10. Acceptable use</h2>
 
               <p>You agree not to:</p>
 
@@ -314,7 +332,7 @@ export default function TermsOfUseCloudPage() {
                 immediate suspension or termination of your account.
               </p>
 
-              <h2 id="your-data">10. Your data</h2>
+              <h2 id="your-data">11. Your data</h2>
 
               <p>
                 You retain all ownership rights to your data, including database
@@ -341,7 +359,7 @@ export default function TermsOfUseCloudPage() {
                 .
               </p>
 
-              <h2 id="data-retention">11. Data retention and deletion</h2>
+              <h2 id="data-retention">12. Data retention and deletion</h2>
 
               <p>
                 You can delete your databases, backups and associated data at
@@ -358,7 +376,7 @@ export default function TermsOfUseCloudPage() {
                 your data after the 30-day deletion period.
               </p>
 
-              <h2 id="third-party-services">12. Third-party services</h2>
+              <h2 id="third-party-services">13. Third-party services</h2>
 
               <p>
                 The Service relies on third-party infrastructure and services,
@@ -368,7 +386,7 @@ export default function TermsOfUseCloudPage() {
                 data loss or service degradation caused by third-party services.
               </p>
 
-              <h2 id="intellectual-property">13. Intellectual property</h2>
+              <h2 id="intellectual-property">14. Intellectual property</h2>
 
               <p>
                 The Service, including its design, code, features, branding and
@@ -384,7 +402,7 @@ export default function TermsOfUseCloudPage() {
                 these Terms.
               </p>
 
-              <h2 id="service-availability">14. Service availability</h2>
+              <h2 id="service-availability">15. Service availability</h2>
 
               <p>
                 We do not guarantee any specific level of uptime, availability
@@ -400,7 +418,7 @@ export default function TermsOfUseCloudPage() {
               </p>
 
               <h2 id="disclaimer-of-warranties">
-                15. Disclaimer of warranties
+                16. Disclaimer of warranties
               </h2>
 
               <p>
@@ -422,7 +440,7 @@ export default function TermsOfUseCloudPage() {
                 or recoverable.
               </p>
 
-              <h2 id="limitation-of-liability">16. Limitation of liability</h2>
+              <h2 id="limitation-of-liability">17. Limitation of liability</h2>
 
               <p>
                 <strong>
@@ -451,7 +469,7 @@ export default function TermsOfUseCloudPage() {
                 possibility of such damages.
               </p>
 
-              <h2 id="indemnification">17. Indemnification</h2>
+              <h2 id="indemnification">18. Indemnification</h2>
 
               <p>
                 To the extent permitted by applicable law, you agree to
@@ -471,7 +489,7 @@ export default function TermsOfUseCloudPage() {
               </ul>
 
               <h2 id="suspension-and-termination">
-                18. Suspension and termination
+                19. Suspension and termination
               </h2>
 
               <p>
@@ -503,7 +521,7 @@ export default function TermsOfUseCloudPage() {
                 liability, indemnification and governing law) shall survive.
               </p>
 
-              <h2 id="modifications">19. Modifications to terms and pricing</h2>
+              <h2 id="modifications">20. Modifications to terms and pricing</h2>
 
               <p>
                 We may modify these Terms from time to time. For material
@@ -529,7 +547,7 @@ export default function TermsOfUseCloudPage() {
                 compliance may take effect immediately.
               </p>
 
-              <h2 id="governing-law">20. Governing law and disputes</h2>
+              <h2 id="governing-law">21. Governing law and disputes</h2>
 
               <p>
                 These Terms shall be governed by and construed in accordance
@@ -557,7 +575,7 @@ export default function TermsOfUseCloudPage() {
                 days.
               </p>
 
-              <h2 id="force-majeure">21. Force majeure</h2>
+              <h2 id="force-majeure">22. Force majeure</h2>
 
               <p>
                 We shall not be liable for any failure or delay in performing
@@ -568,7 +586,7 @@ export default function TermsOfUseCloudPage() {
                 or failures of third-party infrastructure providers.
               </p>
 
-              <h2 id="general-provisions">22. General provisions</h2>
+              <h2 id="general-provisions">23. General provisions</h2>
 
               <ul>
                 <li>
