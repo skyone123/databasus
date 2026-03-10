@@ -27,7 +27,7 @@ export default function TermsOfUseCloudPage() {
               <h1 id="terms-of-use">Terms of Use — Databasus Cloud</h1>
 
               <p className="text-lg text-gray-400">
-                Last updated: March 9, 2026
+                Last updated: March 10, 2026
               </p>
 
               <p>
@@ -40,9 +40,9 @@ export default function TermsOfUseCloudPage() {
                 >
                   app.databasus.com
                 </a>
-                . Databasus Cloud is operated by Individual Entrepreneur
-                Rostyslav Duhin (Identification Number: 347010209), registered
-                in Georgia (&quot;we&quot;, &quot;us&quot;, &quot;our&quot;).
+                . Databasus Cloud is operated by Databasus (IE Rostyslav Duhin,
+                Identification Number: 347010209), registered in Georgia
+                (&quot;we&quot;, &quot;us&quot;, &quot;our&quot;).
               </p>
 
               <p>
@@ -81,9 +81,9 @@ export default function TermsOfUseCloudPage() {
                 database backups. The Service supports PostgreSQL, MySQL,
                 MariaDB and MongoDB. It provides scheduled backups, encrypted
                 storage, backup management, team access controls and audit
-                logging. The Service uses standard database dump tools
-                (pg_dump, mysqldump, mongodump) to create backups and stores
-                them in encrypted form in S3-compatible storage.
+                logging. The Service uses standard database dump tools (pg_dump,
+                mysqldump, mongodump) to create backups and stores them in
+                encrypted form in S3-compatible storage.
               </p>
 
               <h2 id="eligibility">3. Eligibility</h2>
@@ -103,12 +103,8 @@ export default function TermsOfUseCloudPage() {
               </p>
 
               <ul>
-                <li>
-                  Maintaining the accuracy of your account information
-                </li>
-                <li>
-                  Keeping your login credentials secure and confidential
-                </li>
+                <li>Maintaining the accuracy of your account information</li>
+                <li>Keeping your login credentials secure and confidential</li>
                 <li>
                   All activity that occurs under your account, whether or not
                   authorized by you
@@ -155,9 +151,24 @@ export default function TermsOfUseCloudPage() {
                   date
                 </li>
                 <li>
-                  All fees are non-refundable except as required by applicable
-                  law. In exceptional circumstances, we may at our sole
-                  discretion issue refunds or credits on a case-by-case basis
+                  You may cancel your subscription and request a full refund
+                  within <strong>14 days</strong> of the initial purchase,
+                  without giving any reason. To request a refund, contact us at{" "}
+                  <a
+                    href="mailto:info@databasus.com"
+                    className="text-blue-500 hover:text-blue-600"
+                  >
+                    info@databasus.com
+                  </a>
+                  . Refunds will be processed within 14 days of receiving your
+                  cancellation request, using the same payment method as the
+                  original transaction
+                </li>
+                <li>
+                  The 14-day refund right applies to the initial subscription
+                  purchase only and does not apply upon each automatic renewal.
+                  There are no refunds for unused portions of a billing period
+                  after the 14-day cancellation window has passed
                 </li>
                 <li>
                   If a payment fails, your account may be{" "}
@@ -173,9 +184,7 @@ export default function TermsOfUseCloudPage() {
 
               <h2 id="user-responsibilities">7. User responsibilities</h2>
 
-              <p>
-                You are solely responsible for:
-              </p>
+              <p>You are solely responsible for:</p>
 
               <ul>
                 <li>
@@ -195,9 +204,7 @@ export default function TermsOfUseCloudPage() {
                   </strong>{" "}
                   to verify backup integrity
                 </li>
-                <li>
-                  Maintaining a valid payment method for paid plans
-                </li>
+                <li>Maintaining a valid payment method for paid plans</li>
                 <li>
                   Complying with your own database provider&apos;s terms of
                   service when using the Service
@@ -208,9 +215,7 @@ export default function TermsOfUseCloudPage() {
                 </li>
               </ul>
 
-              <h2 id="backup-disclaimer">
-                8. Backup service disclaimer
-              </h2>
+              <h2 id="backup-disclaimer">8. Backup service disclaimer</h2>
 
               <p>
                 <strong>
@@ -231,9 +236,14 @@ export default function TermsOfUseCloudPage() {
               </p>
 
               <ul>
-                <li>Network connectivity issues between the Service and your database</li>
+                <li>
+                  Network connectivity issues between the Service and your
+                  database
+                </li>
                 <li>Expired, incorrect or insufficient database credentials</li>
-                <li>Database configuration issues or version incompatibilities</li>
+                <li>
+                  Database configuration issues or version incompatibilities
+                </li>
                 <li>Storage provider outages or errors</li>
                 <li>
                   Bugs or limitations in upstream database dump tools (pg_dump,
@@ -379,14 +389,14 @@ export default function TermsOfUseCloudPage() {
               <p>
                 We do not guarantee any specific level of uptime, availability
                 or performance. The Service is provided without a Service Level
-                Agreement (SLA). The Service may experience planned or
-                unplanned downtime for maintenance, updates, infrastructure
-                changes or other reasons.
+                Agreement (SLA). The Service may experience planned or unplanned
+                downtime for maintenance, updates, infrastructure changes or
+                other reasons.
               </p>
 
               <p>
-                We may modify, update or discontinue any features of the
-                Service at any time.
+                We may modify, update or discontinue any features of the Service
+                at any time.
               </p>
 
               <h2 id="disclaimer-of-warranties">
@@ -412,9 +422,7 @@ export default function TermsOfUseCloudPage() {
                 or recoverable.
               </p>
 
-              <h2 id="limitation-of-liability">
-                16. Limitation of liability
-              </h2>
+              <h2 id="limitation-of-liability">16. Limitation of liability</h2>
 
               <p>
                 <strong>
@@ -459,9 +467,7 @@ export default function TermsOfUseCloudPage() {
                   Your violation of any applicable law or the rights of any
                   third party
                 </li>
-                <li>
-                  The content of the databases you connect to the Service
-                </li>
+                <li>The content of the databases you connect to the Service</li>
               </ul>
 
               <h2 id="suspension-and-termination">
@@ -472,11 +478,10 @@ export default function TermsOfUseCloudPage() {
                 To the extent permitted by applicable law, we reserve the right
                 to suspend or terminate your account and access to the Service
                 at our sole discretion, with or without cause and with or
-                without notice. Reasons for suspension or
-                termination may include but are not limited to: violation of
-                these Terms, non-payment, suspected fraud, abuse or if
-                continued provision of the Service is no longer commercially
-                viable.
+                without notice. Reasons for suspension or termination may
+                include but are not limited to: violation of these Terms,
+                non-payment, suspected fraud, abuse or if continued provision of
+                the Service is no longer commercially viable.
               </p>
 
               <p>
@@ -507,21 +512,20 @@ export default function TermsOfUseCloudPage() {
                 account. The updated Terms will indicate the new &quot;Last
                 updated&quot; date. Your continued use of the Service after the
                 effective date constitutes your acceptance of the modified
-                Terms. If you do not agree with the changes, you must stop
-                using the Service and close your account before the effective
-                date.
+                Terms. If you do not agree with the changes, you must stop using
+                the Service and close your account before the effective date.
               </p>
 
               <p>
                 We may change the pricing of the Service at any time. Pricing
-                changes take effect at the start of your next billing cycle.
-                You may cancel your plan before the next billing cycle if you
-                do not agree with the new pricing.
+                changes take effect at the start of your next billing cycle. You
+                may cancel your plan before the next billing cycle if you do not
+                agree with the new pricing.
               </p>
 
               <p>
-                Minor, non-material changes to the Terms (such as corrections
-                or clarifications) and changes required for security or legal
+                Minor, non-material changes to the Terms (such as corrections or
+                clarifications) and changes required for security or legal
                 compliance may take effect immediately.
               </p>
 
@@ -559,10 +563,9 @@ export default function TermsOfUseCloudPage() {
                 We shall not be liable for any failure or delay in performing
                 our obligations under these Terms caused by events beyond our
                 reasonable control, including but not limited to natural
-                disasters, wars, terrorism, pandemics, government actions,
-                power outages, internet or telecommunications failures,
-                cyberattacks, or failures of third-party infrastructure
-                providers.
+                disasters, wars, terrorism, pandemics, government actions, power
+                outages, internet or telecommunications failures, cyberattacks,
+                or failures of third-party infrastructure providers.
               </p>
 
               <h2 id="general-provisions">22. General provisions</h2>
@@ -600,9 +603,7 @@ export default function TermsOfUseCloudPage() {
 
               <h2 id="contact">Contact</h2>
 
-              <p>
-                If you have questions about these Terms, contact us:
-              </p>
+              <p>If you have questions about these Terms, contact us:</p>
 
               <ul>
                 <li>
@@ -624,8 +625,8 @@ export default function TermsOfUseCloudPage() {
                   </a>
                 </li>
                 <li>
-                  <strong>Operator:</strong> Individual Entrepreneur Rostyslav
-                  Duhin, Georgia
+                  <strong>Operator:</strong> Databasus (IE Rostyslav Duhin),
+                  Georgia
                 </li>
               </ul>
             </article>

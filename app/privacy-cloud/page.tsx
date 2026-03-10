@@ -27,7 +27,7 @@ export default function PrivacyCloudPage() {
               <h1 id="privacy-policy">Privacy Policy — Databasus Cloud</h1>
 
               <p className="text-lg text-gray-400">
-                Last updated: March 9, 2026
+                Last updated: March 10, 2026
               </p>
 
               <p>
@@ -45,10 +45,10 @@ export default function PrivacyCloudPage() {
               </p>
 
               <p>
-                Databasus Cloud is operated by Individual Entrepreneur Rostyslav
-                Duhin (Identification Number: 347010209), registered in Georgia.
-                For the privacy policy of the self-hosted version and the
-                marketing website, see the{" "}
+                Databasus Cloud is operated by Databasus (IE Rostyslav Duhin,
+                Identification Number: 347010209), registered in Georgia. For
+                the privacy policy of the self-hosted version and the marketing
+                website, see the{" "}
                 <a
                   href="/privacy"
                   className="text-blue-500 hover:text-blue-600"
@@ -132,10 +132,9 @@ export default function PrivacyCloudPage() {
 
               <p>
                 Backup archives are stored in S3-compatible storage in the EU
-                and USA.
-                Each backup file is encrypted with a unique key derived from a
-                master key, backup ID and random salt. We do not access the
-                contents of your backups unless required by law or with your
+                and USA. Each backup file is encrypted with a unique key derived
+                from a master key, backup ID and random salt. We do not access
+                the contents of your backups unless required by law or with your
                 explicit consent for support purposes.
               </p>
 
@@ -144,8 +143,8 @@ export default function PrivacyCloudPage() {
               <p>
                 Databasus Cloud records audit logs of actions performed within
                 your organization (backup downloads, schedule changes,
-                configuration updates, user access, etc.). These logs are stored on
-                our servers. Users within your organization can view them
+                configuration updates, user access, etc.). These logs are stored
+                on our servers. Users within your organization can view them
                 through the dashboard. We may access audit logs for support and
                 debugging purposes.
               </p>
@@ -430,8 +429,8 @@ export default function PrivacyCloudPage() {
                   </a>
                 </li>
                 <li>
-                  <strong>Data controller:</strong> Individual Entrepreneur
-                  Rostyslav Duhin, Georgia
+                  <strong>Data controller:</strong> Databasus (IE Rostyslav
+                  Duhin), Georgia
                 </li>
               </ul>
             </article>
