@@ -247,6 +247,9 @@ Real-time notifications via email, Slack, Telegram, webhooks, Mattermost, Discor
 ### Security
 All data executes within containers you control on servers you own. Credentials and backup files remain on your server or in your cloud account. Enterprise-grade AES-256-GCM encryption protects backup files, making them useless even if storage is compromised. Open source allows full code inspection.
 
+### Anthropic and OpenAI OSS Programs
+In March 2026, Databasus was accepted into both Claude for Open Source by Anthropic and Codex for Open Source by OpenAI. The project has been independently evaluated and recognized by industry leaders as critical open-source infrastructure worth supporting. For more details, see /faq#oss-programs
+
 ### AI Usage in Development
 For information about AI usage in Databasus development, see /faq#ai-usage
 

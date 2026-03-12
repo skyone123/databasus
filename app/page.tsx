@@ -177,10 +177,10 @@ export default function Index() {
               },
               {
                 "@type": "Question",
-                name: "Who is Databasus suitable for?",
+                name: "Is Databasus supported by Anthropic and OpenAI OSS programs?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "Databasus is designed for single developers, DevOps teams, organizations, startups, system administrators and IT departments who need reliable databases backups. Whether you're managing personal projects or production databases, Databasus provides enterprise-grade backup capabilities with a simple, intuitive interface.",
+                  text: "Yes, in March 2026 Databasus was accepted into both Claude for Open Source by Anthropic and Codex for Open Source by OpenAI. The project has been independently evaluated and recognized by industry leaders as critical open-source infrastructure worth supporting.",
                 },
               },
               {
@@ -412,6 +412,29 @@ export default function Index() {
                 loading="eager"
                 fetchPriority="high"
               />
+            </div>
+          </div>
+
+          <div className="mt-10 md:mt-15 mb-12 md:mb-20 flex justify-center px-4 md:px-0">
+            <div className="flex flex-col md:flex-row items-center">
+              <img
+                className="h-[45px] md:h-[55px]"
+                src="/images/index/ais.svg"
+                alt="Support by Anthropic and OpenAI OSS"
+              />
+
+              <div className="flex justify-center text-base md:text-xl mt-4 md:mt-0 md:ml-10">
+                <div className="max-w-[370px] text-gray-400 text-center md:text-left">
+                  Supported by both Anthropic and Open AI open source programs.{" "}
+                  <a
+                    href="/faq#oss-programs"
+                    target="_blank"
+                    className="text-blue-500 hover:text-blue-600 font-medium"
+                  >
+                    Learn&nbsp;more&nbsp;→
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -1353,21 +1376,39 @@ export default function Index() {
             />
             <FaqItem
               number="9"
-              question="Can I use Databasus as an individual and as a team?"
+              question="Is Databasus supported by Anthropic and OpenAI OSS programs?"
               answer={
                 <>
-                  Yes, Databasus works perfectly for both individual developers
-                  and teams. For individuals, you can manage all your databases
-                  with a simple, secure interface. For teams, Databasus offers
-                  access management features that let you create multiple users
-                  with different permission levels (viewer, editor, admin).
-                  <br />
-                  <br />
-                  You can control who can view or manage specific databases,
-                  making it ideal for DevOps teams and development
-                  organizations. Additionally, audit logs track all system
-                  activities, showing who accessed what and when, which is
-                  essential for security compliance and team accountability.
+                  Yes, we are proud that Databasus has been recognized as a
+                  valuable open-source project by two of the world&apos;s
+                  leading AI companies. In March 2026, Databasus was accepted
+                  into both{" "}
+                  <a
+                    href="https://claude.com/contact-sales/claude-for-oss"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-400 hover:text-blue-600"
+                  >
+                    Claude for Open Source
+                  </a>{" "}
+                  by Anthropic and{" "}
+                  <a
+                    href="https://developers.openai.com/codex/community/codex-for-oss/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-400 hover:text-blue-600"
+                  >
+                    Codex for Open Source
+                  </a>{" "}
+                  by OpenAI. This is an independent reliability confirmation for
+                  us that the project has been evaluated and recognized as
+                  critical infrastructure worth supporting.{" "}
+                  <a
+                    href="/faq#oss-programs"
+                    className="text-blue-400 hover:text-blue-600"
+                  >
+                    Read more →
+                  </a>
                 </>
               }
             />

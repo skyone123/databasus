@@ -87,6 +87,14 @@ export default function FAQPage() {
                   text: "To backup Databasus, go to /opt/databasus (or the folder where you installed it), then navigate to the databasus-data directory. You need to backup the secret.key file (encryption key for credentials) and the /pgdata folder (internal database containing configurations and backup metadata). There are two recovery scenarios: 1) You can recover database backups using only secret.key without Databasus UI (see manual recovery guide), 2) To restore Databasus UI with all configurations and history, you need both secret.key and /pgdata folder. To restore, recreate this folder structure on another server.",
                 },
               },
+              {
+                "@type": "Question",
+                name: "How is Databasus supported by Anthropic and OpenAI open-source programs?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "In March 2026, Databasus was accepted into both Claude for Open Source by Anthropic and Codex for Open Source by OpenAI. Being backed by these programs is a reliability signal — the project has been independently evaluated and recognized by industry leaders as critical open-source infrastructure worth supporting. Despite having access to the best AI tooling available, Databasus maintains strict AI usage rules: no vibe coding, line-by-line human verification and full test coverage are required for all contributions.",
+                },
+              },
             ],
           }),
         }}
@@ -359,6 +367,72 @@ export default function FAQPage() {
                 <strong>To restore Databasus on another server:</strong> simply
                 recreate the <code>databasus-data</code> folder structure with
                 the backed up files and start Databasus.
+              </p>
+
+              <h2 id="oss-programs">
+                How is Databasus supported by Anthropic and OpenAI open-source
+                programs?
+              </h2>
+
+              <p>
+                In March 2026, Databasus was accepted into both{" "}
+                <strong>
+                  <a
+                    href="https://claude.com/contact-sales/claude-for-oss"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Claude for Open Source
+                  </a>
+                </strong>{" "}
+                by Anthropic and{" "}
+                <strong>
+                  <a
+                    href="https://developers.openai.com/codex/community/codex-for-oss/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Codex for Open Source
+                  </a>
+                </strong>{" "}
+                by OpenAI. It is really valuable for us that the project has
+                been recognized as important open-source software for the
+                industry by two of the world&apos;s leading AI companies —
+                especially given the high eligibility requirements of both
+                programs.
+              </p>
+
+              <p>
+                What does it mean for users? It just one more reliability
+                confirmation that the project has been independently evaluated
+                and recognized by industry leaders as critical infrastructure
+                worth supporting. So we have even higher code quality, faster
+                security reviews and continued active development due to access
+                to the latest unlimited AIs.
+              </p>
+
+              <img
+                src="/images/faq/anthropic-email.png"
+                alt="Databasus accepted into Claude for Open Source program by Anthropic"
+                className="my-6 rounded-lg border border-gray-700 max-w-full sm:max-w-[1000px]"
+                loading="lazy"
+              />
+
+              <img
+                src="/images/faq/openai-email.png"
+                alt="Databasus accepted into Codex for Open Source program by OpenAI"
+                className="my-6 rounded-lg border border-gray-700 max-w-full sm:max-w-[1000px]"
+                loading="lazy"
+              />
+
+              <p>
+                Despite having access to these programs, Databasus maintains
+                strict AI usage rules as described in the{" "}
+                <a href="#ai-usage">AI usage section</a>. All code requires
+                line-by-line human verification, full test coverage and
+                experienced developer review. Vibe coding is not allowed. AI
+                remains a tool for developers — not a replacement for human
+                judgment.
               </p>
 
               <h2 id="why-internal-postgres-valkey">
