@@ -503,6 +503,13 @@ export default function TermsOfUseCloudPage() {
               </p>
 
               <p>
+                We reserve the right to refuse or discontinue providing the
+                Service to any user at our sole discretion, without obligation
+                to provide a reason. In such cases, any prepaid fees for the
+                unused portion of the current billing period will be refunded.
+              </p>
+
+              <p>
                 You may stop using the Service at any time. To close your
                 account, contact us at{" "}
                 <a
