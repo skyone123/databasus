@@ -433,7 +433,7 @@ export default function Index() {
 
               <div className="flex justify-center text-base md:text-xl mt-4 md:mt-0 md:ml-10">
                 <div className="max-w-[370px] text-gray-400 text-center md:text-left">
-                  Supported by both Anthropic and Open AI open source programs.{" "}
+                  Supported by both Anthropic and OpenAI open source programs.{" "}
                   <a
                     href="/faq#oss-programs"
                     target="_blank"
