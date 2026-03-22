@@ -196,7 +196,7 @@ export default function Index() {
                 name: "Which databases are supported by Databasus?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "Databasus supports PostgreSQL, MySQL, MariaDB and MongoDB. You can backup and restore all of them with the same tool.",
+                  text: "Databasus supports PostgreSQL, MySQL, MariaDB and MongoDB. However, Databasus was originally created specifically for PostgreSQL and maintains its primary focus on it — providing 100% excellent support and maximum efficiency for PostgreSQL backups. While MySQL, MariaDB and MongoDB are supported, PostgreSQL remains the core priority with the most optimized features and ongoing development. For example, Databasus provide native support of physical and WAL backups for PostgreSQL disaster recovery. So Databasus is actually PostgreSQL backup tools, other DBs are just extensions.",
                 },
               },
               {
@@ -1441,7 +1441,26 @@ export default function Index() {
             <FaqItem
               number="11"
               question="Which databases does Databasus support?"
-              answer="Databasus supports PostgreSQL, MySQL, MariaDB and MongoDB. However, Databasus was originally created specifically for PostgreSQL and maintains its primary focus on it — providing 100% excellent support and maximum efficiency for PostgreSQL backups. While MySQL, MariaDB and MongoDB are fully supported, PostgreSQL remains the core priority with the most optimized features and ongoing development."
+              answer={
+                <>
+                  Databasus supports PostgreSQL, MySQL, MariaDB and MongoDB.
+                  However, Databasus was originally created specifically for
+                  PostgreSQL and maintains its primary focus on it — providing
+                  100% excellent support and maximum efficiency for PostgreSQL
+                  backups.
+                  <br />
+                  <br />
+                  While MySQL, MariaDB and MongoDB are supported, PostgreSQL
+                  remains the core priority with the most optimized features and
+                  ongoing development.
+                  <br />
+                  <br />
+                  For example, Databasus provide native support of physical and
+                  WAL backups for PostgreSQL disaster recovery. So Databasus is
+                  actually PostgreSQL backup tools, other DBs are just
+                  extensions.
+                </>
+              }
             />
             <FaqItem
               number="12"
