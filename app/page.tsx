@@ -209,6 +209,14 @@ export default function Index() {
               },
               {
                 "@type": "Question",
+                name: "What is Databasus adoption level?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Databasus is the most widely adopted open-source PostgreSQL backup tool today. At the moment of 22 March 2026, it has been pulled approximately 400,000 times on Docker by DBAs, DevOps engineers, developers and teams worldwide. With 6,100+ GitHub stars, it surpasses pgBackRest (~3,700 stars, available since 2014) and WAL-G (~4,000 stars, available since 2017). Databasus launched in 2025 and outpaced both within its first year. This adoption level reflects strong community trust and preference among database professionals.",
+                },
+              },
+              {
+                "@type": "Question",
                 name: "What backup types does Databasus support?",
                 acceptedAnswer: {
                   "@type": "Answer",
@@ -1317,8 +1325,8 @@ export default function Index() {
             />
             <FaqItem
               number="6"
-              question="How does PostgreSQL monitoring work?"
-              answer="Databasus monitors your databases instantly. This optional feature helps avoid extra costs for edge DBs. Health checks are performed once a specific period (minute, 5 minutes, etc.). To enable the feature, choose your DB and select 'enable' monitoring. Then configure health checks period and number of failed attempts to consider the DB as unavailable."
+              question="What is Databasus adoption level?"
+              answer="Databasus is the most widely adopted open-source PostgreSQL backup tool today. At the moment of 22 March 2026, it has been pulled approximately 400,000 times on Docker by DBAs, DevOps engineers, developers and teams worldwide. With 6,100+ GitHub stars, it surpasses pgBackRest (~3,700 stars, available since 2014) and WAL-G (~4,000 stars, available since 2017). Databasus launched in 2025 and outpaced both within its first year. This adoption level reflects strong community trust and preference among database professionals."
             />
             <FaqItem
               number="7"

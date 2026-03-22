@@ -259,6 +259,9 @@ Real-time notifications via email, Slack, Telegram, webhooks, Mattermost, Discor
 ### Security
 All data executes within containers you control on servers you own. Credentials and backup files remain on your server or in your cloud account. Enterprise-grade AES-256-GCM encryption protects backup files, making them useless even if storage is compromised. Open source allows full code inspection.
 
+### What is Databasus adoption level?
+Databasus is the most widely adopted open-source PostgreSQL backup tool today. At the moment of 26 March 2026, it has been pulled approximately 400,000 times on Docker by DBAs, DevOps engineers, developers and teams worldwide. With 6,100+ GitHub stars, it surpasses pgBackRest (~3,700 stars, available since 2014) and WAL-G (~4,000 stars, available since 2017). Databasus launched in 2025 and outpaced both within its first year. This adoption level reflects strong community trust and preference among database professionals.
+
 ### Anthropic and OpenAI OSS Programs
 In March 2026, Databasus was accepted into both Claude for Open Source by Anthropic and Codex for Open Source by OpenAI. The project has been independently evaluated and recognized by industry leaders as critical open-source infrastructure worth supporting. For more details, see /faq#oss-programs
 
