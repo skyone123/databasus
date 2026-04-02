@@ -99,12 +99,12 @@ export default function Index() {
           {/* Content */}
           <div className="mb-8 md:mb-16 flex flex-col md:flex-row">
             <div className="w-full md:w-1/2 text-center md:text-left">
-              <h1 className="text-lg sm:text-2xl 2xl:text-3xl leading-tight font-bold mb-4 md:max-w-[600px]">
-                We host Databasus for you, you save ~64% on VPS self-hosting.{" "}
+              <h1 className="text-lg sm:text-2xl 2xl:text-3xl leading-tight font-bold mb-4 md:max-w-[580px]">
+                We host Databasus for you, you save time on VPS self-hosting.{" "}
                 <span className="underline decoration-2 underline-offset-2 sm:decoration-4 sm:underline-offset-4 decoration-[#0d6efd]">
                   Care about backups
                 </span>{" "}
-                instead of uptime and security
+                instead of uptime
               </h1>
 
               <p className="text-sm xl:text-lg text-gray-200 mb-6 max-w-[450px] 2xl:max-w-[500px] mx-auto md:mx-0">
@@ -113,14 +113,15 @@ export default function Index() {
                 <span className="underline decoration-2 underline-offset-2 decoration-[#0d6efd] font-bold">
                   You pay only for used storage
                 </span>{" "}
-                and can focus on your work instead of maintaining servers
+                (that is ~64% cheaper than VPS) and can focus on your work
+                instead of maintaining servers
               </p>
 
               <div className="max-w-[350px] mx-auto md:mx-0">
                 <CloudDashboardButton variant="hero" />
 
-                <div className="mt-2 text-center text-sm max-w-[250px] mx-auto text-gray-500">
-                  You can always switch back to self-hosted, because we are{" "}
+                <div className="mt-2 text-center text-sm max-w-[280px] mx-auto text-gray-500">
+                  *you can always switch back to self-hosted, because we are{" "}
                   <a
                     href="https://github.com/databasus/databasus?tab=readme-ov-file#you-have-a-cloud-version--are-you-truly-open-source"
                     target="_blank"
