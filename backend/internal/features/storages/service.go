@@ -320,6 +320,10 @@ func (s *StorageService) GetStorageByID(
 	return s.storageRepository.FindByID(id)
 }
 
+func (s *StorageService) GetAllStorages() ([]*Storage, error) {
+	return s.storageRepository.GetAllStorages()
+}
+
 func (s *StorageService) TransferStorageToWorkspace(
 	user *users_models.User,
 	storageID uuid.UUID,

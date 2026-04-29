@@ -50,9 +50,12 @@ type EnvVariables struct {
 	IsProcessingNode         bool `env:"IS_PROCESSING_NODE"`
 	NodeNetworkThroughputMBs int  `env:"NODE_NETWORK_THROUGHPUT_MBPS"`
 
-	DataFolder    string
-	TempFolder    string
-	SecretKeyPath string
+	DataFolder            string
+	TempFolder            string
+	SecretKeyPath         string
+	TelemetryInstancePath string
+
+	IsDisableAnonymousTelemetry bool `env:"IS_DISABLE_ANONYMOUS_TELEMETRY"`
 
 	// Billing (always tax-exclusive)
 	PricePerGBCents int64 `env:"PRICE_PER_GB_CENTS"`
@@ -325,6 +328,9 @@ func loadEnvVariables() {
 	env.DataFolder = filepath.Join(filepath.Dir(backendRoot), "databasus-data", "backups")
 	env.TempFolder = filepath.Join(filepath.Dir(backendRoot), "databasus-data", "temp")
 	env.SecretKeyPath = filepath.Join(filepath.Dir(backendRoot), "databasus-data", "secret.key")
+	env.TelemetryInstancePath = filepath.Join(
+		filepath.Dir(backendRoot), "databasus-data", "instance.json",
+	)
 
 	if env.IsTesting {
 		if env.TestPostgres12Port == "" {

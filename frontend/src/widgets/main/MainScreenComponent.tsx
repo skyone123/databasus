@@ -231,14 +231,20 @@ export const MainScreenComponent = () => {
           </a>
 
           {!IS_CLOUD && (
-            <a
-              className="!text-black hover:opacity-80 dark:!text-gray-200"
-              href="https://databasus.com/cloud"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Cloud
-            </a>
+            <Tooltip title="99.9% uptime, 2x backup copies">
+              <a
+                className="flex items-center gap-2 !text-black hover:opacity-80 dark:!text-gray-200"
+                href="https://databasus.com/cloud"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Cloud
+                <span className="relative flex h-2 w-2" aria-label="99.9% uptime, 2 backup copies">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-500 opacity-75" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
+                </span>
+              </a>
+            </Tooltip>
           )}
 
           {isUsedMoreThan85Percent && (

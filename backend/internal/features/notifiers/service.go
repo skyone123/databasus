@@ -178,6 +178,10 @@ func (s *NotifierService) GetNotifierByID(id uuid.UUID) (*Notifier, error) {
 	return s.notifierRepository.FindByID(id)
 }
 
+func (s *NotifierService) GetAllNotifiers() ([]*Notifier, error) {
+	return s.notifierRepository.GetAllNotifiers()
+}
+
 func (s *NotifierService) GetNotifiers(
 	user *users_models.User,
 	workspaceID uuid.UUID,

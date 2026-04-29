@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"log/slog"
+	"time"
 
 	"github.com/google/uuid"
 
@@ -53,6 +54,13 @@ type BackupService struct {
 
 func (s *BackupService) AddBackupRemoveListener(listener backups_core.BackupRemoveListener) {
 	s.backupRemoveListeners = append(s.backupRemoveListeners, listener)
+}
+
+func (s *BackupService) HasSuccessfulBackupSince(
+	databaseID uuid.UUID,
+	since time.Time,
+) (bool, error) {
+	return s.backupRepository.ExistsCompletedSince(databaseID, since)
 }
 
 func (s *BackupService) OnBeforeBackupsStorageChange(databaseID uuid.UUID) error {

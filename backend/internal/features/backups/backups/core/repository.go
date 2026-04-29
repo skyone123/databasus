@@ -30,6 +30,25 @@ func (r *BackupRepository) Save(backup *Backup) error {
 		Error
 }
 
+func (r *BackupRepository) ExistsCompletedSince(
+	databaseID uuid.UUID,
+	since time.Time,
+) (bool, error) {
+	var count int64
+
+	if err := storage.
+		GetDb().
+		Model(&Backup{}).
+		Where("database_id = ? AND status = ? AND created_at >= ?",
+			databaseID, BackupStatusCompleted, since).
+		Limit(1).
+		Count(&count).Error; err != nil {
+		return false, err
+	}
+
+	return count > 0, nil
+}
+
 func (r *BackupRepository) FindByDatabaseID(databaseID uuid.UUID) ([]*Backup, error) {
 	var backups []*Backup
 

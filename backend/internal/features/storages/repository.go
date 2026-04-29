@@ -151,6 +151,16 @@ func (r *StorageRepository) FindByID(id uuid.UUID) (*Storage, error) {
 	return &s, nil
 }
 
+func (r *StorageRepository) GetAllStorages() ([]*Storage, error) {
+	var storages []*Storage
+
+	if err := db.GetDb().Find(&storages).Error; err != nil {
+		return nil, err
+	}
+
+	return storages, nil
+}
+
 func (r *StorageRepository) FindByWorkspaceID(workspaceID uuid.UUID) ([]*Storage, error) {
 	var storages []*Storage
 

@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"flag"
+	"fmt"
 	"log/slog"
 	"net/http"
 	"os"
@@ -41,6 +42,7 @@ import (
 	system_healthcheck "databasus-backend/internal/features/system/healthcheck"
 	system_version "databasus-backend/internal/features/system/version"
 	task_cancellation "databasus-backend/internal/features/tasks/cancellation"
+	"databasus-backend/internal/features/telemetry"
 	users_controllers "databasus-backend/internal/features/users/controllers"
 	users_middleware "databasus-backend/internal/features/users/middleware"
 	users_services "databasus-backend/internal/features/users/services"
@@ -124,6 +126,8 @@ func main() {
 	enableCors(ginApp)
 	setUpRoutes(ginApp)
 	setUpDependencies()
+
+	announceTelemetry()
 
 	runBackgroundTasks(log)
 
@@ -267,6 +271,23 @@ func setUpDependencies() {
 	if config.GetEnv().IsCloud {
 		billing_paddle.SetupDependencies()
 	}
+
+	telemetry.SetupDependencies()
+}
+
+func announceTelemetry() {
+	if !config.GetEnv().IsPrimaryNode {
+		return
+	}
+
+	if config.GetEnv().IsDisableAnonymousTelemetry {
+		return
+	}
+
+	fmt.Println(
+		"Anonymous telemetry collected (Databasus version, OS/arch, etc.). No DB contents, no user data. " +
+			"To disable, set IS_DISABLE_ANONYMOUS_TELEMETRY=true in your .env",
+	)
 }
 
 func runBackgroundTasks(log *slog.Logger) {
@@ -329,6 +350,10 @@ func runBackgroundTasks(log *slog.Logger) {
 				billing.GetBillingService().Run(ctx, *log)
 			})
 		}
+
+		go runWithPanicLogging(log, "telemetry background service", func() {
+			telemetry.GetTelemetryBackgroundService().Run(ctx)
+		})
 	} else {
 		log.Info("Skipping primary node tasks as not primary node")
 	}

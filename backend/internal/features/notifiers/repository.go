@@ -141,6 +141,16 @@ func (r *NotifierRepository) FindByID(id uuid.UUID) (*Notifier, error) {
 	return &notifier, nil
 }
 
+func (r *NotifierRepository) GetAllNotifiers() ([]*Notifier, error) {
+	var notifiers []*Notifier
+
+	if err := storage.GetDb().Find(&notifiers).Error; err != nil {
+		return nil, err
+	}
+
+	return notifiers, nil
+}
+
 func (r *NotifierRepository) FindByWorkspaceID(workspaceID uuid.UUID) ([]*Notifier, error) {
 	var notifiers []*Notifier
 
