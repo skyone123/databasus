@@ -348,7 +348,7 @@ jobs:
           echo "Waiting for MariaDB 12.0..."
           timeout 120 bash -c 'until docker exec test-mariadb-120 healthcheck.sh --connect --innodb_initialized 2>/dev/null; do sleep 2; done'
 
-          # Wait for MongoDB containers 
+          # Wait for MongoDB containers
           echo "Waiting for MongoDB 4.2..."
           timeout 120 bash -c 'until docker exec test-mongodb-42 mongo --eval "db.adminCommand(\"ping\")" -u root -p rootpassword --authenticationDatabase admin 2>/dev/null; do sleep 2; done'
           echo "Waiting for MongoDB 4.4..."
@@ -361,6 +361,16 @@ jobs:
           timeout 120 bash -c 'until docker exec test-mongodb-70 mongosh --eval "db.adminCommand(\"ping\")" -u root -p rootpassword --authenticationDatabase admin 2>/dev/null; do sleep 2; done'
           echo "Waiting for MongoDB 8.2..."
           timeout 120 bash -c 'until docker exec test-mongodb-82 mongosh --eval "db.adminCommand(\"ping\")" -u root -p rootpassword --authenticationDatabase admin 2>/dev/null; do sleep 2; done'
+
+          # Wait for SSL/TLS test containers
+          echo "Waiting for PostgreSQL SSL..."
+          timeout 120 bash -c 'until docker exec test-postgres-ssl pg_isready -U testuser -d testdb 2>/dev/null; do sleep 2; done'
+          echo "Waiting for MariaDB SSL..."
+          timeout 120 bash -c 'until docker exec test-mariadb-ssl healthcheck.sh --connect --innodb_initialized 2>/dev/null; do sleep 2; done'
+          echo "Waiting for MySQL SSL..."
+          timeout 120 bash -c 'until docker exec test-mysql-ssl mysqladmin ping -h localhost -u root -prootpassword --silent 2>/dev/null; do sleep 2; done'
+          echo "Waiting for MongoDB SSL..."
+          timeout 120 bash -c 'until docker exec test-mongodb-ssl mongosh --tls --tlsAllowInvalidCertificates -u root -p rootpassword --authenticationDatabase admin --eval "db.adminCommand(\"ping\")" 2>/dev/null; do sleep 2; done'
 
       - name: Create data and temp directories
         run: |

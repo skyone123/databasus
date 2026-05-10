@@ -634,3 +634,98 @@ services:
       interval: 5s
       timeout: 5s
       retries: 10
+
+  # ================================================================
+  # SSL / TLS test containers
+  # One representative version per engine — the goal is to catch SSL
+  # handshake regressions without multiplying the version matrix.
+  # ================================================================
+
+  test-postgres-ssl:
+    image: postgres:18
+    ports:
+      - "${TEST_POSTGRES_SSL_PORT}:5432"
+    environment:
+      - POSTGRES_DB=testdb
+      - POSTGRES_USER=testuser
+      - POSTGRES_PASSWORD=testpassword
+    volumes:
+      - ./backend/internal/features/tests/testdata/ssl:/etc/ssl-test:ro
+    command:
+      - bash
+      - -c
+      - install -m 600 -o postgres -g postgres /etc/ssl-test/server.key /tmp/server.key && install -m 644 -o postgres -g postgres /etc/ssl-test/server.crt /tmp/server.crt && exec docker-entrypoint.sh postgres -c ssl=on -c ssl_cert_file=/tmp/server.crt -c ssl_key_file=/tmp/server.key -c hba_file=/etc/ssl-test/pg_hba.conf
+    container_name: test-postgres-ssl
+    shm_size: 1gb
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U testuser -d testdb"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  test-mariadb-ssl:
+    image: mariadb:11.8
+    ports:
+      - "${TEST_MARIADB_SSL_PORT}:3306"
+    environment:
+      - MARIADB_ROOT_PASSWORD=rootpassword
+      - MARIADB_DATABASE=testdb
+      - MARIADB_USER=testuser
+      - MARIADB_PASSWORD=testpassword
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --require-secure-transport=ON
+    volumes:
+      - ./mariadbdata/mariadb-ssl:/var/lib/mysql
+    container_name: test-mariadb-ssl
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  test-mysql-ssl:
+    image: mysql:8.4
+    ports:
+      - "${TEST_MYSQL_SSL_PORT}:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpassword
+      - MYSQL_DATABASE=testdb
+      - MYSQL_USER=testuser
+      - MYSQL_PASSWORD=testpassword
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --require_secure_transport=ON
+    volumes:
+      - ./mysqldata/mysql-ssl:/var/lib/mysql
+    container_name: test-mysql-ssl
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-prootpassword"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  test-mongodb-ssl:
+    image: mongo:8.2.3-noble
+    container_name: test-mongodb-ssl
+    ports:
+      - "${TEST_MONGODB_SSL_PORT}:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: rootpassword
+      MONGO_INITDB_DATABASE: testdb
+    volumes:
+      - ./backend/internal/features/tests/testdata/ssl:/etc/ssl-test:ro
+    command:
+      - bash
+      - -c
+      - install -m 600 -o mongodb -g mongodb /etc/ssl-test/server.pem /tmp/server.pem && install -m 644 -o mongodb -g mongodb /etc/ssl-test/server.crt /tmp/server.crt && exec docker-entrypoint.sh mongod --auth --tlsMode requireTLS --tlsCertificateKeyFile /tmp/server.pem --tlsCAFile /tmp/server.crt --tlsAllowConnectionsWithoutCertificates
+    healthcheck:
+      test: ["CMD", "mongosh", "--tls", "--tlsAllowInvalidCertificates",
+             "-u", "root", "-p", "rootpassword", "--authenticationDatabase", "admin",
+             "--eval", "db.adminCommand('ping')"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
