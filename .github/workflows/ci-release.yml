@@ -362,41 +362,15 @@ jobs:
           echo "Waiting for MongoDB 8.2..."
           timeout 120 bash -c 'until docker exec test-mongodb-82 mongosh --eval "db.adminCommand(\"ping\")" -u root -p rootpassword --authenticationDatabase admin 2>/dev/null; do sleep 2; done'
 
-          # Wait for SSL/TLS test containers.
-          # Exits early with logs if the container stops — silent until-loops
-          # otherwise hide entrypoint failures (e.g. cert install errors) and
-          # waste the full timeout chasing a dead container.
-          wait_for_container() {
-            local name="$1"
-            local probe="$2"
-            local deadline=$(( $(date +%s) + 180 ))
-            while true; do
-              if eval "$probe" >/dev/null 2>&1; then
-                return 0
-              fi
-              if [ "$(docker inspect -f '{{.State.Running}}' "$name" 2>/dev/null)" != "true" ]; then
-                echo "Container $name is not running. Logs:"
-                docker logs "$name" 2>&1 | tail -50
-                docker inspect "$name" --format 'State: {{.State.Status}} ExitCode: {{.State.ExitCode}} Error: {{.State.Error}}'
-                return 1
-              fi
-              if [ "$(date +%s)" -ge "$deadline" ]; then
-                echo "Timed out waiting for $name. Logs:"
-                docker logs "$name" 2>&1 | tail -50
-                return 1
-              fi
-              sleep 2
-            done
-          }
-
+          # Wait for SSL/TLS test containers
           echo "Waiting for PostgreSQL SSL..."
-          wait_for_container test-postgres-ssl 'docker exec test-postgres-ssl pg_isready -h /var/run/postgresql -U testuser -d testdb'
+          timeout 120 bash -c 'until docker exec test-postgres-ssl pg_isready -U testuser -d testdb 2>/dev/null; do sleep 2; done'
           echo "Waiting for MariaDB SSL..."
-          wait_for_container test-mariadb-ssl 'docker exec test-mariadb-ssl healthcheck.sh --connect --innodb_initialized'
+          timeout 120 bash -c 'until docker exec test-mariadb-ssl healthcheck.sh --connect --innodb_initialized 2>/dev/null; do sleep 2; done'
           echo "Waiting for MySQL SSL..."
-          wait_for_container test-mysql-ssl 'docker exec test-mysql-ssl mysqladmin ping -h localhost -u root -prootpassword --silent'
+          timeout 120 bash -c 'until docker exec test-mysql-ssl mysqladmin ping -h localhost -u root -prootpassword --silent 2>/dev/null; do sleep 2; done'
           echo "Waiting for MongoDB SSL..."
-          wait_for_container test-mongodb-ssl 'docker exec test-mongodb-ssl mongosh --tls --tlsAllowInvalidCertificates -u root -p rootpassword --authenticationDatabase admin --eval "db.adminCommand(\"ping\")"'
+          timeout 120 bash -c 'until docker exec test-mongodb-ssl mongosh --tls --tlsAllowInvalidCertificates -u root -p rootpassword --authenticationDatabase admin --eval "db.adminCommand(\"ping\")" 2>/dev/null; do sleep 2; done'
 
       - name: Create data and temp directories
         run: |
