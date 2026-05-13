@@ -211,7 +211,7 @@ services:
     ports:
       - "${TEST_AZURITE_BLOB_PORT}:10000"
     container_name: test-azurite
-    command: azurite-blob --blobHost 0.0.0.0
+    command: azurite-blob --blobHost 0.0.0.0 --skipApiVersionCheck
 
   # Test NAS server (Samba)
   test-nas:

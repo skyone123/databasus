@@ -60,3 +60,15 @@ After each change run linting and formatting depending on folder you are working
 Don't write comments that explain previous behavior ("used to be X", "was renamed from Y", "kept for legacy callers"). Code shows the current state; history lives in git.
 
 Don't preserve backward compatibility unless the user asks for it. No deprecation shims, no aliases, no fallbacks for the old shape. When planning a change that would break existing callers, schemas, configs, or APIs, call out the break explicitly in the plan. If the user approves it, delete the old code outright — do not leave a transition layer behind.
+
+### Security
+
+Databasus handles sensitive data, so security is a layered defence. CodeQL, CodeRabbit, Codex Security, Trivy, Dependabot, gitleaks and semgrep all run on every PR. When working in the repo:
+
+- Don't disable or weaken security checks to make a build pass. For genuine false positives, suppress explicitly with a documented reason (e.g. `.trivyignore`) and explain why in the PR.
+- Pin every new GitHub Action to a full commit SHA with a `# vX.Y.Z` tag comment. No floating tags like `@v4` or `@main`.
+- Workflows default to top-level `permissions: contents: read`; elevate per-job only when justified.
+- Keep Dockerfiles free of secrets, floating base-image tags and unjustified root. If root-at-start is required (PUID/PGID remap, volume chown, initdb), drop privileges with `gosu` before `exec`-ing the app.
+- Never log secrets, tokens or credentials. Redact at the logger layer, not at call sites.
+
+The README's `🛡️ Security & reliability engineering` section is the public-facing version of these practices — keep both consistent if substance changes.
