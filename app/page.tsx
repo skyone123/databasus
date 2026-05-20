@@ -145,10 +145,10 @@ export default function Index() {
               },
               {
                 "@type": "Question",
-                name: "What backup schedules can I schedule?",
+                name: "How restore verification works?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "You can choose from hourly, daily, weekly, monthly or cron cycles and even choose an exact run time (such as 04:00 when it's late night). Weekly schedules enable you to choose a particular weekday, while monthly schedules enable you to choose a particular calendar day, giving you very fine-grained control of maintenance windows. Retention policies let you automatically clean up old backups by time period, count, size limit or GFS (Grandfather-Father-Son), the latter being popular for enterprise compliance.",
+                  text: "Databasus runs a small verification agent on a host you control. On every scheduled run the agent downloads the latest backup. It restores the backup into a throwaway database container. Then it sanity-checks the restored database against the source. The result is reported back — including the restore exit code and per-table row counts. Schedules support after backup, hourly, daily, weekly, monthly or a UTC cron expression. Failures can be sent through any notifier wired to the database — Slack, Teams, Discord, email and others.",
                 },
               },
               {
@@ -514,8 +514,8 @@ export default function Index() {
 
               <p className="text-gray-400 text-sm md:text-base">
                 Backup is a thing that should be done in specified time on
-                regular basis. So we provide many options: from hourly to
-                monthly
+                regular basis. So we provide many options: hourly, daily,
+                weekly, monthly, cron, etc.
               </p>
             </div>
 
@@ -659,21 +659,29 @@ export default function Index() {
               </div>
             </div>
 
-            {/* Card 7: Many PostgreSQL versions - Mobile/Tablet separate, Desktop merged with card 10 */}
+            {/* Card 7: Restore verification - Mobile/Tablet separate, Desktop merged with card 10 */}
             <div className="border-b md:border-r lg:border-r lg:border-b-0 border-[#ffffff20] col-span-1 lg:row-span-2 lg:flex lg:flex-col">
-              {/* Card 7: Many PostgreSQL versions */}
+              {/* Card 7: Restore verification */}
               <div className="p-5 md:p-6 lg:border-b lg:border-[#ffffff20]">
                 <div className="flex items-center justify-center w-6 h-6 rounded text-sm font-semibold mb-4 border border-[#ffffff20]">
                   7
                 </div>
 
                 <h3 className="text-lg md:text-xl 2xl:text-2xl font-bold mb-4 md:mb-5">
-                  Many PostgreSQL versions
+                  Restore verification
                 </h3>
 
                 <p className="text-gray-400 text-sm md:text-base mb-4">
-                  PostgreSQL 12, 13, 14, 15, 16, 17 and 18 are supported by the
-                  project. You can backup any version from 2019
+                  A backup that finishes without error is not the same as a
+                  backup you can restore. Databasus periodically pulls the
+                  latest backup, restores it into a throwaway database container
+                  and reports the outcome.{' '}
+                  <a
+                    href="/restore-verification"
+                    className="text-blue-500 hover:text-blue-600 font-medium"
+                  >
+                    Read more →
+                  </a>
                 </p>
 
                 <div>
@@ -1304,8 +1312,8 @@ export default function Index() {
             />
             <FaqItem
               number="3"
-              question="What backup schedules can I schedule?"
-              answer="You can choose from hourly, daily, weekly, monthly or cron cycles and even choose an exact run time (such as 04:00 when it's late night). Weekly schedules enable you to choose a particular weekday, while monthly schedules enable you to choose a particular calendar day, giving you very fine-grained control of maintenance windows. You can also configure retention policies to automatically clean up old backups — by time period, count, size limit or GFS (Grandfather-Father-Son), the latter being popular for enterprise compliance."
+              question="How restore verification works?"
+              answer="Databasus runs a small verification agent on a host you control. On every scheduled run the agent downloads the latest backup. It restores the backup into a throwaway database container. Then it sanity-checks the restored database against the source. The result is reported back — including the restore exit code and per-table row counts. Schedules support after backup, hourly, daily, weekly, monthly or a UTC cron expression. Failures can be sent through any notifier wired to the database — Slack, Teams, Discord, email and others."
             />
             <FaqItem
               number="4"
@@ -1404,9 +1412,11 @@ export default function Index() {
                   <br />
                   <br />
                   Moreover, we have a DBA-as-a-service offering,{" "}
-                  <a href="/labs" target="_blank" className="text-blue-400">Databasus Labs</a>, to fund Databasus
-                  development and help companies with their database management
-                  needs.
+                  <a href="/labs" target="_blank" className="text-blue-400">
+                    Databasus Labs
+                  </a>
+                  , to fund Databasus development and help companies with their
+                  database management needs.
                   <br />
                   <br />
                   Revenue from Cloud and Databasus Labs funds full-time
@@ -1417,8 +1427,8 @@ export default function Index() {
                   <br />
                   <br />
                   To address this, Databasus sustains itself so it can grow and
-                  improve independently, without being tied to any enterprise
-                  or sponsor. Our vision is to keep Databasus fully open-source
+                  improve independently, without being tied to any enterprise or
+                  sponsor. Our vision is to keep Databasus fully open-source
                   forever, with a promise to never close it off through
                   licensing or withheld code. So any DevOps or DBA company can
                   provide services on top of Databasus as well.

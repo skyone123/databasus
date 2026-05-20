@@ -13,9 +13,11 @@ const navItems: NavItem[] = [
   {
     title: "Installation",
     href: "/installation",
-    children: [
-      { title: "Agent mode", href: "/installation/agent" },
-    ],
+    children: [{ title: "Agent mode", href: "/installation/agent" }],
+  },
+  {
+    title: "Restore verification",
+    href: "/restore-verification",
   },
   {
     title: "Storages",
@@ -46,10 +48,6 @@ const navItems: NavItem[] = [
     href: "/security",
   },
   {
-    title: "Manual recovery from backup without Databasus",
-    href: "/how-to-recover-without-databasus",
-  },
-  {
     title: "FAQ",
     href: "/faq",
     children: [
@@ -65,6 +63,7 @@ const navItems: NavItem[] = [
       { title: "How to add notifier", href: "/contribute/how-to-add-notifier" },
     ],
   },
+
   {
     title: "Comparisons",
     href: "/pgdump-alternative",
@@ -75,6 +74,10 @@ const navItems: NavItem[] = [
       { title: "Databasus vs pgBackRest", href: "/databasus-vs-pgbackrest" },
       { title: "Databasus vs WAL-G", href: "/databasus-vs-wal-g" },
     ],
+  },
+  {
+    title: "Manual recovery from backup without Databasus",
+    href: "/how-to-recover-without-databasus",
   },
 ];
 

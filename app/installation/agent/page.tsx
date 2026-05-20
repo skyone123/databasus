@@ -131,6 +131,12 @@ chown postgres:postgres /wal-queue`;
 # archive_mode = on
 # archive_command = '...'`;
 
+  const dockerVolumeMountExample = `# PostgreSQL 17 and earlier
+docker run -d -v <HOST_PGDATA_PATH>:/var/lib/postgresql/data postgres:17
+
+# PostgreSQL 18+
+docker run -d -v <HOST_PGDATA_PATH>:/var/lib/postgresql/18/docker postgres:18`;
+
   return (
     <>
       {/* JSON-LD Structured Data */}
@@ -558,6 +564,24 @@ chown postgres:postgres /wal-queue`;
                 </pre>
                 <div className="absolute right-2 top-2">
                   <CopyButton text={restoreCommandDocker} />
+                </div>
+              </div>
+
+              <p>
+                Mount <code>&lt;HOST_PGDATA_PATH&gt;</code> at the
+                container&apos;s PGDATA path when (re)creating the postgres
+                container. The path depends on the major version: PostgreSQL
+                18+ uses <code>/var/lib/postgresql/&lt;major&gt;/docker</code>;
+                PostgreSQL 17 and earlier use{" "}
+                <code>/var/lib/postgresql/data</code>.
+              </p>
+
+              <div className="relative my-6">
+                <pre className="overflow-x-auto rounded-lg bg-gray-900 p-4 text-sm text-gray-100">
+                  <code>{dockerVolumeMountExample}</code>
+                </pre>
+                <div className="absolute right-2 top-2">
+                  <CopyButton text={dockerVolumeMountExample} />
                 </div>
               </div>
 
