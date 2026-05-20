@@ -1,6 +1,6 @@
 import { Tooltip } from 'antd';
 
-import { IS_CLOUD } from '../../../constants';
+import { IS_CLOUD, IS_DISABLE_CLOUD_NOTICE } from '../../../constants';
 import { StarButtonComponent } from '../../../shared/ui/StarButtonComponent';
 import { ThemeToggleComponent } from '../../../shared/ui/ThemeToggleComponent';
 
@@ -25,7 +25,7 @@ export function AuthNavbarComponent() {
       </div>
 
       <div className="mr-3 ml-auto hidden items-center gap-5 sm:flex">
-        {!IS_CLOUD && (
+        {!IS_CLOUD && !IS_DISABLE_CLOUD_NOTICE && (
           <Tooltip title="99.9% uptime, 2x backup copies">
             <a
               className="flex items-center gap-2 !text-black hover:opacity-80 dark:!text-gray-200"
@@ -42,7 +42,7 @@ export function AuthNavbarComponent() {
           </Tooltip>
         )}
 
-        {!IS_CLOUD && (
+        {!IS_CLOUD && !IS_DISABLE_CLOUD_NOTICE && (
           <a
             className="!text-black hover:opacity-80 dark:!text-gray-200"
             href="https://databasus.com/labs"

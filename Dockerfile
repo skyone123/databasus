@@ -270,6 +270,7 @@ cat > /app/ui/build/runtime-config.js <<JSEOF
 // This file is generated dynamically and should not be edited manually
 window.__RUNTIME_CONFIG__ = {
   IS_CLOUD: '\${IS_CLOUD:-false}',
+  IS_DISABLE_CLOUD_NOTICE: '\${IS_DISABLE_CLOUD_NOTICE:-false}',
   GITHUB_CLIENT_ID: '\${GITHUB_CLIENT_ID:-}',
   GOOGLE_CLIENT_ID: '\${GOOGLE_CLIENT_ID:-}',
   IS_EMAIL_CONFIGURED: '\$IS_EMAIL_CONFIGURED',

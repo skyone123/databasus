@@ -2,7 +2,7 @@ import { LoadingOutlined, MenuOutlined } from '@ant-design/icons';
 import { App, Button, Spin, Tooltip } from 'antd';
 import { useEffect, useState } from 'react';
 
-import { APP_VERSION, CONTAINER_ARCH, IS_CLOUD } from '../../constants';
+import { APP_VERSION, CONTAINER_ARCH, IS_CLOUD, IS_DISABLE_CLOUD_NOTICE } from '../../constants';
 import { type DiskUsage, diskApi } from '../../entity/disk';
 import {
   type UserProfile,
@@ -212,7 +212,7 @@ export const MainScreenComponent = () => {
         </div>
 
         <div className="ml-auto hidden items-center gap-5 md:flex">
-          {!IS_CLOUD && (
+          {!IS_CLOUD && !IS_DISABLE_CLOUD_NOTICE && (
             <Tooltip title="99.9% uptime, 2x backup copies">
               <a
                 className="flex items-center gap-2 !text-black hover:opacity-80 dark:!text-gray-200"
@@ -229,7 +229,7 @@ export const MainScreenComponent = () => {
             </Tooltip>
           )}
 
-          {!IS_CLOUD && (
+          {!IS_CLOUD && !IS_DISABLE_CLOUD_NOTICE && (
             <a
               className="!text-black hover:opacity-80 dark:!text-gray-200"
               href="https://databasus.com/labs"

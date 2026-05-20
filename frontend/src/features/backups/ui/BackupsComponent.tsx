@@ -12,7 +12,7 @@ import {
   SafetyOutlined,
   SyncOutlined,
 } from '@ant-design/icons';
-import { App, Button, Modal, Spin, Table, Tag, Tooltip } from 'antd';
+import { App, Button, Modal, Spin, Table, Tooltip } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import dayjs from 'dayjs';
 import { type JSX, useEffect, useRef, useState } from 'react';
@@ -35,7 +35,7 @@ import { getUserTimeFormat } from '../../../shared/time';
 import { ConfirmationComponent } from '../../../shared/ui';
 import { RestoresComponent } from '../../restores';
 import {
-  RESTORE_VERIFICATION_STATUS_COLORS,
+  RESTORE_VERIFICATION_STATUS_BADGE_STYLES,
   RESTORE_VERIFICATION_STATUS_LABELS,
 } from '../model/restoreVerificationStatus';
 import { AgentRestoreComponent } from './AgentRestoreComponent';
@@ -60,16 +60,19 @@ const renderRestoreVerificationTag = (
     return null;
   }
 
-  const color = RESTORE_VERIFICATION_STATUS_COLORS[status];
+  const badgeStyle = RESTORE_VERIFICATION_STATUS_BADGE_STYLES[status];
   const label = RESTORE_VERIFICATION_STATUS_LABELS[status];
-  if (!color || !label) {
+  if (!badgeStyle || !label) {
     return null;
   }
 
   return (
-    <Tag color={color} className="ml-2">
+    <span
+      className={`ml-3 inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-xs font-medium whitespace-nowrap ring-1 ring-inset ${badgeStyle.pillClasses}`}
+    >
+      <span className={`h-1.5 w-1.5 rounded-full ${badgeStyle.dotClasses}`} />
       {label}
-    </Tag>
+    </span>
   );
 };
 
