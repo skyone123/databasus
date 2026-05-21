@@ -350,8 +350,8 @@ export default function Index() {
               Databasus is a free, open source and self-hosted tool to backup
               PostgreSQL. Make backups with different storages (S3, Google
               Drive, FTP, etc.) and notifications about progress (Slack,
-              Discord, Telegram, etc.). With focus on PITR and{" "}
-              <span className="underline underline-offset-2 decoration-blue-600">restore verification</span>
+              Discord, Telegram, etc.). With focus on Point-In-Time Recovery and{" "}
+              <span className="underline decoration-2 underline-offset-2 decoration-blue-600">restore verification</span>
             </p>
 
             <div>
