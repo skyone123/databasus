@@ -55,6 +55,10 @@
 URL: /installation
 Content: Four installation methods - automated script, Docker run, Docker Compose and Helm for Kubernetes. Here you can read how to install Databasus
 
+### Advanced Config
+URL: /advanced-config
+Content: Optional environment variables for self-hosting Databasus — none required for a default install. Covers Google and GitHub OAuth sign-in, SMTP email, Cloudflare Turnstile sign-up captcha, disabling the in-app cloud notice, anonymous telemetry, VictoriaLogs log shipping, a custom analytics script and multi-node mode — including why Databasus bundles its own PostgreSQL and Valkey and how to run it against external instances. Notes that OAuth sign-in and email require the instance to be served over HTTPS on a public domain.
+
 ### Access Management
 URL: /access-management
 Content: Workspaces, user roles, audit logs and global settings for managing access control. Here you can read how to manage access to Databasus, which roles system does it have. As well here exaplained how teams and organizations can control usage for their team members.

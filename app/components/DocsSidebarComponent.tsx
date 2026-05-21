@@ -79,6 +79,10 @@ const navItems: NavItem[] = [
     title: "Manual recovery from backup without Databasus",
     href: "/how-to-recover-without-databasus",
   },
+  {
+    title: "Advanced config",
+    href: "/advanced-config",
+  },
 ];
 
 export default function DocsSidebarComponent() {

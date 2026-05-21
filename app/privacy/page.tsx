@@ -349,6 +349,86 @@ export default function PrivacyPage() {
                 share data with any other parties.
               </p>
 
+              <h2 id="anonymous-telemetry">
+                Anonymous telemetry in the app
+              </h2>
+
+              <p>
+                Everything above describes our website. The self-hosted
+                Databasus app also collects a small amount of{" "}
+                <strong>anonymous telemetry</strong> so we can see how Databasus
+                is used in practice. It is intentionally minimal, cannot be tied
+                back to you, your data or your instance and can be switched off
+                at any time.
+              </p>
+
+              <h3 id="telemetry-what-we-collect">What the app collects</h3>
+
+              <p>
+                We collect only general, high-level metrics about key features
+                — for example which database types and versions are most
+                common and which storages and notifiers people enable. It is
+                just enough to see the overall picture, nothing more.
+              </p>
+
+              <h3 id="telemetry-what-we-do-not-collect">
+                What the app does NOT collect
+              </h3>
+
+              <p>The telemetry is deliberately coarse. We never collect:</p>
+
+              <ul>
+                <li>
+                  <strong>Database, table or column names</strong> - the
+                  structure and naming of your data stays private
+                </li>
+                <li>
+                  <strong>Names of any kind</strong> - no project, server or
+                  account names
+                </li>
+                <li>
+                  <strong>Credentials</strong> - no passwords, tokens or
+                  connection strings
+                </li>
+                <li>
+                  <strong>Connection details</strong> - no hostnames, IP
+                  addresses or other network information
+                </li>
+                <li>
+                  <strong>Your data</strong> - no backup contents or any actual
+                  database data
+                </li>
+              </ul>
+
+              <p>
+                These metrics describe trends across all installations, never a
+                single one, so they cannot identify you, your instance or your
+                databases.
+              </p>
+
+              <h3 id="telemetry-why">Why we collect it</h3>
+
+              <p>
+                This helps us decide what to improve first, see which features
+                are genuinely useful and spot what is barely used so it can be
+                cleaned up. The goal is to keep Databasus as simple and reliable
+                as possible.
+              </p>
+
+              <h3 id="telemetry-opt-out">How to turn it off</h3>
+
+              <p>
+                Anonymous telemetry is fully optional. It can be disabled with a
+                single environment variable - see the Telemetry section of the{" "}
+                <a
+                  href="/advanced-config/#telemetry"
+                  className="text-blue-500 hover:text-blue-600"
+                >
+                  advanced configuration
+                </a>{" "}
+                page for details.
+              </p>
+
               <h2 id="changes-to-policy">Changes to this privacy policy</h2>
 
               <p>
