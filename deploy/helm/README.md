@@ -266,6 +266,9 @@ helm install databasus oci://ghcr.io/databasus/charts/databasus \
 persistence:
   size: 50Gi
   storageClassName: "fast-ssd"
+  annotations:
+    k8up.io/backup: "false"
+
 ```
 
 ```bash
