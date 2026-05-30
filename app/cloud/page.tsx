@@ -81,7 +81,7 @@ export default function Index() {
       values: ["30 days", "30 days", "30 days", "Custom"],
     },
     {
-      label: "Verified restore on daily basis",
+      label: "Verified restore on a daily basis",
       values: [true, true, true, true],
     },
     {
@@ -94,6 +94,10 @@ export default function Index() {
     },
     {
       label: "Dedicated support with SLA",
+      values: [false, false, false, true],
+    },
+    {
+      label: "Point-in-time recovery",
       values: [false, false, false, true],
     },
     {
@@ -186,22 +190,33 @@ export default function Index() {
           {/* Content */}
           <div className="mb-8 md:mb-16 flex flex-col md:flex-row">
             <div className="w-full md:w-1/2 text-center md:text-left">
-              <h1 className="text-xl sm:text-2xl 2xl:text-3xl leading-tight font-bold mb-4 md:max-w-[470px]">
-                PostgreSQL backups with restore verification at optimized cost.
-                So you are sure{" "}
+              <h1 className="text-xl sm:text-2xl 2xl:text-3xl leading-tight font-bold mb-4 md:max-w-[530px]">
+                PostgreSQL backups{" "}
                 <span className="underline decoration-4 underline-offset-3 decoration-[#0d6efd]">
-                  your data is safe
-                </span>{" "}
+                  at optimized cost
+                </span>
+                . Keep an independent copy of&nbsp;your data before disaster
+                strikes
               </h1>
 
-              <p className="text-sm xl:text-lg text-gray-200 mb-6 max-w-[460px] mx-auto md:mx-0">
-                Databasus cloud is backing up your database as primary or
-                additional independent backups engine. Your backups{" "}
-                <span className="underline decoration-2 underline-offset-2 decoration-[#0d6efd]">
-                  are verified via automatic restore test
-                </span>{" "} each day
-                so you can be sure your backups are working as expected
+              <p className="text-sm xl:text-lg text-gray-200 mb-4 max-w-[460px] mx-auto md:mx-0">
+                Databasus Cloud backs up your database as a primary or
+                additional independent backup engine (suitable for cloud DBs). We take care of uptime and
+                cost optimization for you
               </p>
+
+              <ul className="mb-6 max-w-[460px] mx-auto md:mx-0 flex flex-col gap-2 text-sm xl:text-lg text-gray-200">
+                {[
+                  "Restore verification on a daily basis",
+                  "Download portable backups at any time",
+                  "No need to host or maintain it yourself",
+                ].map((item) => (
+                  <li key={item} className="flex items-start gap-2.5 text-left">
+                    <span className="mt-[0.55em] h-1.5 w-1.5 shrink-0 rounded-full bg-[#0d6efd]" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
 
               <div className="max-w-[350px] mx-auto md:mx-0">
                 <div className="flex flex-col gap-2">
@@ -372,8 +387,8 @@ export default function Index() {
 
             <p className="text-sm sm:text-lg text-gray-200 max-w-[650px] mx-auto">
               Every plan is priced per database and includes a verified restore
-              test on daily basis. Scale storage, backup frequency and retention
-              as you grow — usually cheaper than running it yourself.
+              test on a daily basis. Scale storage, backup frequency and
+              retention as you grow — usually cheaper than running it yourself.
             </p>
           </div>
 
