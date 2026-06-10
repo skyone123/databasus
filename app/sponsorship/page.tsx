@@ -205,7 +205,7 @@ export default function SponsorshipPage() {
                 </div>
               </div>
 
-              <h1 className="mt-8 text-3xl max-w-[45Dvtcn0px] md:text-4xl font-extrabold leading-[1.1] tracking-tight text-white">
+              <h1 className="mt-8 text-3xl max-w-[450px] md:text-4xl font-extrabold leading-[1.1] tracking-tight text-white">
                 Databasus helps you? You can help Databasus as well
               </h1>
               <p className="mt-4 text-lg md:text-xl leading-relaxed text-gray-300">
