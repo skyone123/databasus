@@ -194,12 +194,6 @@ export default function SponsorshipPage() {
                     Rostislav Dugin
                   </div>
                   <div className="mt-1 flex items-center gap-1.5 text-sm text-gray-400">
-                    <img
-                      src="/logo.svg"
-                      alt=""
-                      aria-hidden="true"
-                      className="h-4 w-4"
-                    />
                     Developer of Databasus
                   </div>
                 </div>
@@ -210,7 +204,7 @@ export default function SponsorshipPage() {
               </h1>
               <p className="mt-4 text-lg md:text-xl leading-relaxed text-gray-300">
                 Sponsor the work behind it — and keep it free, maintained and
-                independent. This is your investment in open source.
+                independent. This is your investment in open source
               </p>
 
               {/* The pledge */}
@@ -225,7 +219,7 @@ export default function SponsorshipPage() {
                   </p>
                   <p className="mt-3 text-base md:text-lg leading-relaxed text-gray-300">
                     No open core. No feature gates. No paywalled features. Every
-                    capability, free for everyone, forever, under Apache 2.0.
+                    capability, free for everyone, forever, under Apache 2.0
                   </p>
                 </blockquote>
               </figure>
