@@ -80,13 +80,18 @@ export default function DatabasusVsWalGPage() {
               <h1 id="databasus-vs-wal-g">Databasus vs WAL-G</h1>
 
               <p className="text-lg text-gray-400">
-                Databasus and WAL-G are both capable backup tools that support
-                PostgreSQL with physical backups, WAL archiving and
-                Point-in-Time Recovery. Databasus focuses on comprehensive
-                backup management with an intuitive web interface and both
-                logical and physical backup capabilities. WAL-G is a
-                command-line tool that uses a custom streaming protocol for
-                slightly better performance, supports delta backups (changed
+                Databasus and WAL-G are both built for disaster recovery with
+                minimal RTO and RPO, and both support PostgreSQL physical
+                backups, WAL archiving and Point-in-Time Recovery. Databasus runs
+                these backups remotely on PostgreSQL 17&apos;s native stack, so
+                it reuses PostgreSQL&apos;s own battle-tested tooling instead of
+                re-inventing it, all behind an intuitive web interface. It works
+                for databases of any size and complexity. Physical backups
+                require PostgreSQL 17 or newer, and older versions fall back to
+                logical <code>pg_dump</code> backups. WAL-G is a command-line
+                tool that ships its own engine, so it covers physical backups on
+                much older PostgreSQL versions, uses a custom streaming protocol
+                for slightly better performance, supports delta backups (changed
                 pages only) and covers more database engines including MS SQL,
                 FoundationDB and Greenplum.
               </p>
@@ -130,22 +135,23 @@ export default function DatabasusVsWalGPage() {
                     <td data-label="WAL-G">Physical (WAL archiving)</td>
                   </tr>
                   <tr>
+                    <td>PostgreSQL version for physical backups</td>
+                    <td data-label="Databasus">17+ (native)</td>
+                    <td data-label="WAL-G">9.x+ (own engine)</td>
+                  </tr>
+                  <tr>
                     <td>Backup scheduling</td>
                     <td data-label="Databasus">✅ Built-in scheduler</td>
                     <td data-label="WAL-G">Requires external (cron)</td>
                   </tr>
                   <tr>
                     <td>Recovery options</td>
-                    <td data-label="Databasus">
-                      ✅ PITR + logical restore
-                    </td>
-                    <td data-label="WAL-G">
-                      ✅ WAL-based PITR (second-precise)
-                    </td>
+                    <td data-label="Databasus">✅ PITR</td>
+                    <td data-label="WAL-G">✅ PITR</td>
                   </tr>
                   <tr>
                     <td>Incremental backups</td>
-                    <td data-label="Databasus">✅ WAL-based</td>
+                    <td data-label="Databasus">✅ Block-level (PG 17+)</td>
                     <td data-label="WAL-G">
                       Delta backups (changed pages only)
                     </td>
@@ -154,14 +160,7 @@ export default function DatabasusVsWalGPage() {
                     <td>Remote backups</td>
                     <td data-label="Databasus">✅ Yes</td>
                     <td data-label="WAL-G">
-                      ❌ No (local agent only)
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Agent backups</td>
-                    <td data-label="Databasus">✅ Yes</td>
-                    <td data-label="WAL-G">
-                      ✅ Yes
+                      ❌ No (runs locally)
                     </td>
                   </tr>
                   <tr>
@@ -382,14 +381,26 @@ export default function DatabasusVsWalGPage() {
 
               <ul>
                 <li>
-                  <strong>Logical backups (remote mode)</strong>: Uses{" "}
-                  <code>pg_dump</code> for portable backups that can be
-                  restored to different PostgreSQL versions. No agent required.
+                  <strong>Physical, incremental and WAL backups</strong>: Run
+                  remotely over the PostgreSQL replication protocol on
+                  PostgreSQL 17&apos;s native stack — <code>pg_basebackup</code>,
+                  block-level <code>pg_basebackup --incremental</code> driven by
+                  server-side WAL summaries, <code>pg_receivewal</code> and{" "}
+                  <code>pg_combinebackup</code>. Databasus reuses
+                  PostgreSQL&apos;s own battle-tested tooling instead of
+                  re-inventing it. Requires PostgreSQL 17 or newer.
                 </li>
                 <li>
-                  <strong>Physical backups (agent mode)</strong>: File-level
-                  copies via <code>pg_basebackup</code> with continuous WAL
-                  archiving and Point-in-Time Recovery.
+                  <strong>Logical backups</strong>: Uses <code>pg_dump</code> for
+                  portable backups that can be restored to different PostgreSQL
+                  versions. This is also the fallback on PostgreSQL older than 17
+                  and the path for MySQL, MariaDB and MongoDB.
+                </li>
+                <li>
+                  <strong>Nothing installed on the database</strong>: Backups
+                  connect remotely; closed networks are reached through an SSH
+                  tunnel to an internal host or a bastion, so the database never
+                  has to be exposed publicly.
                 </li>
                 <li>
                   <strong>Efficient compression</strong>: Uses zstd (level 5)
@@ -441,7 +452,7 @@ export default function DatabasusVsWalGPage() {
               <ul>
                 <li>
                   <strong>Point-in-Time Recovery</strong>: Restore to any
-                  specific second using WAL replay via the agent.
+                  specific second using WAL replay.
                 </li>
                 <li>
                   <strong>Full cluster restore</strong>: Restore the entire
@@ -855,6 +866,10 @@ export default function DatabasusVsWalGPage() {
                 </p>
                 <ul className="text-white mb-0">
                   <li>
+                    You need physical or incremental backups on PostgreSQL older
+                    than 17 (WAL-G ships its own backup engine)
+                  </li>
+                  <li>
                     You need delta backups (changed pages only) for reduced
                     storage and transfer time
                   </li>
@@ -876,11 +891,11 @@ export default function DatabasusVsWalGPage() {
               </div>
 
               <p>
-                Both tools support physical backups, WAL archiving and PITR.
-                Databasus provides comprehensive backup management with its
-                web interface, team features and support for both logical and
-                physical backups — working seamlessly with both self-hosted
-                and cloud-managed databases.
+                Both tools support physical backups, WAL archiving and PITR, and
+                both are built for disaster recovery with minimal RTO and RPO.
+                Databasus works for databases of any size and complexity, and it
+                gives you a web interface, team features and both logical and
+                physical backups across self-hosted and cloud-managed databases.
                 <br />
                 <br />
                 WAL-G remains an excellent choice for teams that prefer

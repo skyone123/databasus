@@ -81,15 +81,20 @@ export default function DatabasusVsBarmanPage() {
               <h1 id="databasus-vs-barman">Databasus vs Barman</h1>
 
               <p className="text-lg text-gray-400">
-                Databasus and Barman are both PostgreSQL backup tools that
-                support physical backups, WAL archiving and Point-in-Time
-                Recovery. Databasus provides an intuitive web interface with
-                both logical and physical backup capabilities, team
-                collaboration features and support for multiple database
-                engines. Barman (Backup and Recovery Manager) is a
-                command-line tool with advanced features like rsync-based
-                incremental backups, streaming replication integration and
-                Barman-to-Barman geo-redundancy.
+                Databasus and Barman are both built for disaster recovery with
+                minimal RTO and RPO, and both support physical backups, WAL
+                archiving and Point-in-Time Recovery. Databasus runs these
+                backups remotely on PostgreSQL 17&apos;s native stack, so it
+                reuses PostgreSQL&apos;s own battle-tested tooling instead of
+                re-inventing it, all behind an intuitive web interface with team
+                features and support for multiple database engines. It works for
+                databases of any size and complexity. Physical backups require
+                PostgreSQL 17 or newer, and older versions fall back to logical{" "}
+                <code>pg_dump</code> backups. Barman (Backup and Recovery
+                Manager) ships its own backup engine, so it covers physical
+                backups on much older PostgreSQL versions and adds advanced
+                features like rsync-based incremental backups, streaming
+                replication integration and Barman-to-Barman geo-redundancy.
               </p>
 
               <h2 id="quick-comparison">Quick comparison</h2>
@@ -135,17 +140,18 @@ export default function DatabasusVsBarmanPage() {
                     <td data-label="Barman">Physical (file-level)</td>
                   </tr>
                   <tr>
+                    <td>PostgreSQL version for physical backups</td>
+                    <td data-label="Databasus">17+ (native)</td>
+                    <td data-label="Barman">9.x+ (own engine)</td>
+                  </tr>
+                  <tr>
                     <td>Recovery options</td>
-                    <td data-label="Databasus">
-                      ✅ PITR + logical restore
-                    </td>
-                    <td data-label="Barman">
-                      ✅ WAL-based PITR (second-precise)
-                    </td>
+                    <td data-label="Databasus">✅ PITR</td>
+                    <td data-label="Barman">✅ PITR</td>
                   </tr>
                   <tr>
                     <td>Incremental backups</td>
-                    <td data-label="Databasus">✅ WAL-based</td>
+                    <td data-label="Databasus">✅ Block-level (PG 17+)</td>
                     <td data-label="Barman">rsync-based incremental</td>
                   </tr>
                   <tr>
@@ -153,13 +159,6 @@ export default function DatabasusVsBarmanPage() {
                     <td data-label="Databasus">✅ Yes</td>
                     <td data-label="Barman">
                       ❌ No (requires filesystem access)
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Agent backups</td>
-                    <td data-label="Databasus">✅ Yes</td>
-                    <td data-label="Barman">
-                      ✅ Yes
                     </td>
                   </tr>
                   <tr>
@@ -292,14 +291,26 @@ export default function DatabasusVsBarmanPage() {
 
               <ul>
                 <li>
-                  <strong>Logical backups (remote mode)</strong>: Uses{" "}
-                  <code>pg_dump</code> for portable backups that can be
-                  restored to different PostgreSQL versions. No agent required.
+                  <strong>Physical, incremental and WAL backups</strong>: Run
+                  remotely over the PostgreSQL replication protocol on
+                  PostgreSQL 17&apos;s native stack — <code>pg_basebackup</code>,
+                  block-level <code>pg_basebackup --incremental</code> driven by
+                  server-side WAL summaries, <code>pg_receivewal</code> and{" "}
+                  <code>pg_combinebackup</code>. Databasus reuses
+                  PostgreSQL&apos;s own battle-tested tooling instead of
+                  re-inventing it. Requires PostgreSQL 17 or newer.
                 </li>
                 <li>
-                  <strong>Physical backups (agent mode)</strong>: File-level
-                  copies via <code>pg_basebackup</code> with continuous WAL
-                  archiving and Point-in-Time Recovery.
+                  <strong>Logical backups</strong>: Uses <code>pg_dump</code> for
+                  portable backups that can be restored to different PostgreSQL
+                  versions. This is also the fallback on PostgreSQL older than 17
+                  and the path for MySQL, MariaDB and MongoDB.
+                </li>
+                <li>
+                  <strong>Nothing installed on the database</strong>: Backups
+                  connect remotely; closed networks are reached through an SSH
+                  tunnel to an internal host or a bastion, so the database never
+                  has to be exposed publicly.
                 </li>
                 <li>
                   <strong>Efficient compression</strong>: Uses zstd (level 5)
@@ -352,7 +363,7 @@ export default function DatabasusVsBarmanPage() {
               <ul>
                 <li>
                   <strong>Point-in-Time Recovery</strong>: Restore to any
-                  specific second using WAL replay via the agent.
+                  specific second using WAL replay.
                 </li>
                 <li>
                   <strong>Full cluster restore</strong>: Restore the entire
@@ -760,6 +771,10 @@ export default function DatabasusVsBarmanPage() {
                 </p>
                 <ul className="text-white mb-0">
                   <li>
+                    You need physical or incremental backups on PostgreSQL older
+                    than 17 (Barman ships its own backup engine)
+                  </li>
+                  <li>
                     You need rsync-based incremental backups (file-level
                     diffing) for reduced transfer time
                   </li>
@@ -785,15 +800,14 @@ export default function DatabasusVsBarmanPage() {
               </div>
 
               <p>
-                Both tools support physical backups, WAL archiving and
-                PITR. Databasus provides the right balance of power and
-                usability with its web interface, team features and support
-                for both logical and physical backups — working seamlessly
-                with both self-hosted and cloud-managed databases. Barman
-                remains the specialized choice for organizations that need
-                rsync-based incremental backups, streaming replication
-                integration, Barman-to-Barman geo-redundancy or standby
-                creation from backups.
+                Both tools support physical backups, WAL archiving and PITR, and
+                both are built for disaster recovery with minimal RTO and RPO.
+                Databasus works for databases of any size and complexity, and it
+                gives you a web interface, team features and both logical and
+                physical backups across self-hosted and cloud-managed databases.
+                Barman is the better fit when you need rsync-based incremental
+                backups, streaming replication integration, Barman-to-Barman
+                geo-redundancy or standby creation from backups.
               </p>
             </article>
           </div>

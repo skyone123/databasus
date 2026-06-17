@@ -182,7 +182,7 @@ export default function PgDumpAlternativePage() {
                   <tr>
                     <td>Incremental backups</td>
                     <td data-label="pg_dump">❌ No</td>
-                    <td data-label="Databasus">✅ WAL-based</td>
+                    <td data-label="Databasus">✅ Block-level (PG 17+)</td>
                   </tr>
                   <tr>
                     <td>Point-in-Time Recovery</td>
@@ -333,29 +333,40 @@ export default function PgDumpAlternativePage() {
               <ul>
                 <li>
                   <strong>Physical backups</strong>: File-level copies of the
-                  entire database cluster via <code>pg_basebackup</code>,
-                  streamed through the Databasus agent. Faster backup and
-                  restore for large databases.
+                  entire database cluster via <code>pg_basebackup</code>. Faster
+                  backup and restore for large databases.
                 </li>
                 <li>
-                  <strong>Incremental backups with WAL archiving</strong>:
-                  Continuous WAL segment streaming to Databasus, enabling
-                  Point-in-Time Recovery — restore to any second between
-                  backups.
+                  <strong>Incremental and WAL backups</strong>: Block-level
+                  incremental backups via <code>pg_basebackup --incremental</code>{" "}
+                  (driven by server-side WAL summaries) plus continuous WAL
+                  streaming via <code>pg_receivewal</code>, enabling
+                  Point-in-Time Recovery — restore to any second between backups.
                 </li>
                 <li>
                   <strong>Disaster recovery</strong>: Designed for near-zero
                   data loss requirements with physical base backups and
-                  continuous WAL archiving.
+                  continuous WAL streaming.
                 </li>
               </ul>
 
               <p>
-                These features are available through the Databasus agent — a
-                lightweight binary that runs alongside the database and connects
-                to the Databasus instance. The database never needs to be
-                exposed publicly, making it suitable for closed networks and
-                self-hosted databases.
+                These backups are built on PostgreSQL 17&apos;s native backup
+                mechanism, so Databasus reuses PostgreSQL&apos;s own
+                battle-tested tooling instead of re-inventing it. They require
+                PostgreSQL 17 or newer; on older versions Databasus falls back to
+                logical <code>pg_dump</code> backups. Everything runs remotely
+                from the Databasus host over the replication protocol, so nothing
+                is installed on the database server. Closed networks are reached
+                through an SSH tunnel to an internal host or a bastion, so the
+                database never has to be exposed publicly.{" "}
+                <a
+                  href="/faq#pitr"
+                  className="text-blue-400 hover:text-blue-600"
+                >
+                  Read how physical and PITR backups work
+                </a>
+                .
               </p>
 
               <h2 id="backup-automation">Backup automation</h2>

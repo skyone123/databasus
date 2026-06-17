@@ -167,7 +167,7 @@ export default function DatabasusVsPgBackWebPage() {
                   </tr>
                   <tr>
                     <td>Incremental backups</td>
-                    <td data-label="Databasus">✅ WAL-based</td>
+                    <td data-label="Databasus">✅ Block-level (PG 17+)</td>
                     <td data-label="PgBackWeb">❌ Not available</td>
                   </tr>
                   <tr>
@@ -204,12 +204,15 @@ export default function DatabasusVsPgBackWebPage() {
               </ul>
 
               <p>
-                Beyond logical backups, Databasus also supports physical
-                backups with continuous WAL archiving and Point-in-Time
-                Recovery through its agent mode. This enables incremental
-                backups, disaster recovery with near-zero data loss and
-                restore to any second between backups — features that
-                PgBackWeb does not offer at all.
+                Beyond logical backups, Databasus also supports physical,
+                incremental and WAL backups. These are built on PostgreSQL
+                17&apos;s native backup stack and run remotely, so nothing is
+                installed on the database server and closed networks can be
+                reached through an SSH tunnel. This gives you block-level
+                incremental backups, continuous WAL streaming and Point-in-Time
+                Recovery for disaster recovery with near-zero data loss,
+                restoring to any second between backups. PgBackWeb does not offer
+                any of this.
               </p>
 
               <h2 id="storage-options">Storage options</h2>

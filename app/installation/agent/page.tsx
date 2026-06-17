@@ -177,6 +177,38 @@ docker run -d -v <HOST_PGDATA_PATH>:/var/lib/postgresql/18/docker postgres:18`;
             <article className="prose prose-blue max-w-none">
               <h1 id="agent-installation">Agent mode</h1>
 
+              <div className="bg-[#1f2937]/50 border border-[#ffffff20] border-l-[3px] my-4 border-l-red-500 rounded-lg px-4 py-4 flex items-start gap-3">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="text-red-500 mt-0.5 shrink-0"
+                >
+                  <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                  <path d="M12 9v4M12 17h.01" />
+                </svg>
+                <div>
+                  <p className="text-gray-300 my-0!">
+                    <strong>Agent backups are deprecated.</strong> Databasus now
+                    runs physical and PITR backups remotely using PostgreSQL 17
+                    native backups, with no agent installed on the database
+                    server.{" "}
+                    <a
+                      href="/faq/#why-no-agent"
+                      className="text-blue-400 hover:text-blue-300 underline"
+                    >
+                      Read why and how PITR backups work now
+                    </a>
+                    .
+                  </p>
+                </div>
+              </div>
+
               <p className="text-lg text-gray-400">
                 The Databasus agent enables physical backups, incremental
                 backups, WAL archiving and Point-in-Time Recovery (PITR) for

@@ -190,7 +190,7 @@ export default function Index() {
                 name: "How is Databasus different from PgBackRest, Barman or pg_dump?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "Databasus prefers simplicity — it provides a modern web interface to manage backups for many databases at once, with built-in scheduling, compression, multiple storage destinations, health monitoring and real-time notifications. At the same time, Databasus also works in agent mode for disaster recovery with WAL archiving and Point-in-Time Recovery. The agent connects from closed networks to the Databasus instance and streams backups, so databases that are not publicly exposed can still be backed up and managed from a single dashboard.",
+                  text: "Databasus prefers simplicity — it provides a modern web interface to manage backups for many databases at once, with built-in scheduling, compression, multiple storage destinations, health monitoring and real-time notifications. At the same time, unlike pgBackRest and WAL-G, Databasus makes physical, incremental and WAL backups on top of PostgreSQL 17's native approach, so it does not reinvent its own backup engine. It connects to your databases remotely, reaching closed networks through an SSH tunnel to the server or a bastion, so databases that are not publicly exposed can still be backed up and managed from a single dashboard.",
                 },
               },
               {
@@ -203,18 +203,10 @@ export default function Index() {
               },
               {
                 "@type": "Question",
-                name: "Can I restore backups without Databasus?",
-                acceptedAnswer: {
-                  "@type": "Answer",
-                  text: "Yes! You can restore backups directly from storage (like S3, Google Drive, etc.) without Databasus itself. There is no vendor lock-in, even on this open source tool. With just your secret.key file, you can decrypt and restore any backup manually using standard database tools. This means if your Databasus instance is unavailable or you lose access to it, your backups remain fully recoverable.",
-                },
-              },
-              {
-                "@type": "Question",
                 name: "What is Databasus adoption level?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "Databasus is the most widely adopted open-source PostgreSQL backup tool today. At the moment of 22 March 2026, it has been pulled approximately 400,000 times on Docker by DBAs, DevOps engineers, developers and teams worldwide. With 6,100+ GitHub stars, it surpasses pgBackRest (~3,700 stars, available since 2014) and WAL-G (~4,000 stars, available since 2017). Databasus launched in 2025 and outpaced both within its first year. This adoption level reflects strong community trust and preference among database professionals.",
+                  text: "Databasus is the most widely adopted open-source PostgreSQL backup tool today. At the moment of 17 June 2026, it has been pulled over 1,000,000 times on Docker by DBAs, DevOps engineers, developers and teams worldwide. With 7,500+ GitHub stars, it surpasses pgBackRest (~4,200 stars, available since 2014) and WAL-G (~4,100 stars, available since 2017). Databasus launched in 2025 and outpaced both within its first year. This adoption level reflects strong community trust and preference among database professionals.",
                 },
               },
               {
@@ -222,7 +214,7 @@ export default function Index() {
                 name: "What backup types does Databasus support?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "Databasus supports logical, physical, WAL archiving and Point-in-Time Recovery (PITR). In remote mode, Databasus connects to the database over the network and performs logical backups — no agent needed. In agent mode, a lightweight Go agent runs alongside the database and connects to the Databasus instance, enabling physical backups with continuous WAL archiving and PITR for disaster recovery. Because the agent connects to Databasus, you can manage incremental backups for many databases from a single dashboard.",
+                  text: "Databasus supports physical, full, incremental, WAL and logical backups. Physical backups are a file-level copy of the entire database cluster — faster to back up and restore for large datasets than logical dumps, and built on PostgreSQL 17's native backup mechanism, so we rely on PostgreSQL's own battle-tested tooling instead of re-inventing it. Full backups are a complete, self-contained copy of the cluster, the base every backup chain starts from. Incremental backups store only what changed since the previous backup, so backups stay small and fast. WAL streaming continuously captures the database write stream, enabling Point-in-time recovery (PITR) for disaster recovery and near-zero data loss. Logical backups are a native dump of the database in its engine-specific binary format, compressed and streamed directly to storage with no intermediate files. All of these backups can run over an SSH tunnel if you have a requirement for non-public connections, so the database never has to be exposed publicly.",
                 },
               },
             ],
@@ -336,22 +328,25 @@ export default function Index() {
             </div>
 
             <h1 className="text-2xl sm:text-4xl sm:max-w-[300px] md:text-4xl leading-tight font-bold mb-4 md:mb-6 mx-auto md:max-w-[650px]">
-              PostgreSQL backup tool
+              PostgreSQL backup tool with Point-in-time-recovery and restore
+              verification
             </h1>
 
             <p className="text-sm sm:text-lg text-gray-200 max-w-[720px] mx-auto mb-6 md:mb-10 px-2">
               Databasus is a free, open source and self-hosted tool to backup
               PostgreSQL. Make backups with different storages (S3, Google
               Drive, FTP, etc.) and notifications about progress (Slack,
-              Discord, Telegram, etc.). With focus on Point-In-Time Recovery and{" "}
-              <span className="underline decoration-2 underline-offset-2 decoration-blue-600">restore verification</span>
+              Discord, Telegram, etc.). With a focus on Point-in-Time Recovery{" "}
+              <span className="underline decoration-2 underline-offset-2 decoration-blue-600">
+                at low RPO/RTO
+              </span>
             </p>
 
             <div>
-              <div className="flex flex-col sm:flex-row sm:flex-wrap items-center justify-center gap-2 sm:gap-2 max-w-[370px] mx-auto pb-0 sm:pb-[50px] lg:pb-0 lg:[0px]">
+              <div className="flex flex-col items-center justify-center gap-2 max-w-[370px] sm:max-w-[300px] mx-auto pb-0 sm:pb-[50px] lg:pb-0 lg:[0px]">
                 <a
                   href="#installation"
-                  className="w-full sm:flex-1 inline-flex items-center justify-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 bg-white rounded-lg text-black font-medium hover:opacity-70 transition-opacity order-1"
+                  className="w-full inline-flex items-center justify-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 bg-white rounded-lg text-black font-medium hover:opacity-70 transition-opacity order-1"
                 >
                   Self-host via Docker
                 </a>
@@ -360,7 +355,7 @@ export default function Index() {
                   href="https://github.com/databasus/databasus"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full sm:flex-1 inline-flex items-center justify-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 rounded-lg font-medium border border-[#ffffff20] bg-[#0C0E13] hover:opacity-70 transition-opacity order-2 sm:order-2"
+                  className="w-full inline-flex items-center justify-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 rounded-lg font-medium border border-[#ffffff20] bg-[#0C0E13] hover:opacity-70 transition-opacity order-2 sm:order-2"
                 >
                   <svg
                     aria-hidden={true}
@@ -386,13 +381,6 @@ export default function Index() {
                   </svg>
 
                   <span>GitHub</span>
-                </a>
-
-                <a
-                  href="/sponsorship"
-                  className="w-full inline-flex items-center justify-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 rounded-lg font-medium bg-[#155dfc] text-white hover:opacity-80 transition-opacity order-3"
-                >
-                  Sponsor Databasus 🤝
                 </a>
               </div>
             </div>
@@ -814,16 +802,17 @@ export default function Index() {
 
               <div>
                 <h3 className="text-lg md:text-xl 2xl:text-2xl font-bold mb-4 md:mb-5">
-                  Logical, physical and incremental backups with PITR
+                  Logical, physical, incremental and WAL backups
                 </h3>
 
                 <p className="text-gray-400 text-sm md:text-base">
-                  Databasus supports logical, physical and incremental backups
-                  with Point-in-Time Recovery. This makes Databasus suitable for
-                  disaster recovery with WAL archiving and PITR, and works
+                  Databasus supports logical, physical (full and incremental)
+                  backups with WAL-streaming for Point-in-Time Recovery. This
+                  makes Databasus suitable for disaster recovery, and works
                   equally well with self-hosted and cloud databases — use remote
-                  mode for cloud-managed or publicly accessible DBs, and agent
-                  mode for closed networks and host-installed databases
+                  mode for cloud-managed or publicly accessible DBs. Physical
+                  backups are made over PG 17 native backups, read more here
+                  about this.
                 </p>
               </div>
             </div>
@@ -1351,7 +1340,7 @@ export default function Index() {
             <FaqItem
               number="6"
               question="What is Databasus adoption level?"
-              answer="Databasus is the most widely adopted open-source PostgreSQL backup tool today. At the moment of 20 May 2026, it has been pulled approximately 600,000 times on Docker by DBAs, DevOps engineers, developers and teams worldwide. With 7,000+ GitHub stars, it surpasses pgBackRest (~3,700 stars, available since 2014) and WAL-G (~4,000 stars, available since 2017). Databasus launched in 2025 and outpaced both within its first year. This adoption level reflects strong community trust and preference among database professionals."
+              answer="Databasus is the most widely adopted open-source PostgreSQL backup tool today. At the moment of 17 June 2026, it has been pulled over 1,000,000 times on Docker by DBAs, DevOps engineers, developers and teams worldwide. With 7,500+ GitHub stars, it surpasses pgBackRest (~4,200 stars, available since 2014) and WAL-G (~4,100 stars, available since 2017). Databasus launched in 2025 and outpaced both within its first year. This adoption level reflects strong community trust and preference among database professionals."
             />
             <FaqItem
               number="7"
@@ -1367,12 +1356,20 @@ export default function Index() {
                   UI.
                   <br />
                   <br />
-                  At the same time, Databasus also works in agent mode — similar
-                  to WAL-G or pgBackRest — for disaster recovery with WAL
-                  archiving and Point-in-Time Recovery. The agent connects from
-                  closed networks to the Databasus instance, so databases that
-                  are not publicly exposed can still be backed up and managed
-                  from a single dashboard.
+                  At the same time, unlike pgBackRest and WAL-G, Databasus makes
+                  physical, incremental and WAL backups on top of PostgreSQL
+                  17&apos;s native approach, so it does not reinvent its own
+                  backup engine. It connects to your databases remotely, reaching
+                  closed networks through an SSH tunnel to the server or a
+                  bastion, so databases that are not publicly exposed can still be
+                  backed up and managed from a single dashboard.{" "}
+                  <a
+                    href="/faq/#pitr"
+                    className="text-blue-400 hover:text-blue-600"
+                  >
+                    Read how physical and PITR backups implemented
+                  </a>
+                  .
                   <br />
                   <br />
                   We have detailed comparison pages for popular backup tools:{" "}
@@ -1456,7 +1453,7 @@ export default function Index() {
             <FaqItem
               number="9"
               question="Is Databasus an alternative to pg_dump?"
-              answer="For logical backups, yes — Databasus is a modern replacement for pg_dump. It extends pg_dump with a user-friendly web interface, automated scheduling, multiple storage destinations, real-time notifications, health monitoring and backup encryption. Think of it as pg_dump with superpowers — all the reliability plus enterprise features without writing shell scripts. Beyond logical backups, Databasus also supports agent mode where physical backups with WAL archiving are used for disaster recovery scenarios, providing incremental backups and Point-in-Time Recovery."
+              answer="Not exactly. Databasus focuses on disaster recovery with low RTO and RPO, so it is closer to an alternative to pgBackRest or WAL-G — it tries to make disaster recovery as simple as pg_dump. That said, for logical backups it does serve as a pg_dump alternative and uses pg_dump under the hood, adding a user-friendly web interface, automated scheduling, multiple storage destinations, real-time notifications, health monitoring and backup encryption. Logical backups are also available for MySQL, MariaDB and MongoDB."
             />
             <FaqItem
               number="10"
@@ -1487,81 +1484,48 @@ export default function Index() {
               question="What backup types does Databasus support?"
               answer={
                 <>
-                  Databasus supports logical, physical, WAL archiving and
-                  Point-in-Time Recovery (PITR) — so it suits both those who
-                  want simple remote backups and those who need a solid disaster
-                  recovery tool.
+                  Databasus supports physical, full, incremental, WAL and
+                  logical backups — so it suits both those who want simple
+                  logical dumps and those who need a solid disaster recovery
+                  tool.
+                  <ul className="list-disc list-inside mt-3 space-y-2">
+                    <li>
+                      <strong>Physical</strong> — file-level copy of the entire
+                      database cluster. Faster backup and restore for large
+                      datasets than logical dumps. Built on PostgreSQL
+                      17&apos;s native backup mechanism, so we rely on
+                      PostgreSQL&apos;s own battle-tested tooling instead of
+                      re-inventing it
+                    </li>
+                    <li>
+                      <strong>Full</strong> — a complete, self-contained copy of
+                      the cluster, the base every backup chain starts from
+                    </li>
+                    <li>
+                      <strong>Incremental</strong> — stores only what changed
+                      since the previous backup, so backups stay small and fast
+                    </li>
+                    <li>
+                      <strong>WAL streaming</strong> — continuously captures the
+                      database write stream, enabling Point-in-time recovery
+                      (PITR). Designed for disaster recovery and near-zero data
+                      loss
+                    </li>
+                    <li>
+                      <strong>Logical</strong> — native dump of the database in
+                      its engine-specific binary format. Compressed and streamed
+                      directly to storage with no intermediate files
+                    </li>
+                  </ul>
                   <br />
-                  <br />
-                  <strong>Remote mode</strong> — Databasus connects to the
-                  database over the network and performs logical backups (like
-                  pg_dump). No agent or additional software required. Ideal for
-                  cloud-managed and publicly accessible databases.
-                  <br />
-                  <br />
-                  <strong>Agent mode</strong> — a lightweight agent runs
-                  alongside the database and connects to the Databasus instance.
-                  This enables physical backups with continuous WAL archiving
-                  and PITR — designed for disaster recovery and near-zero data
-                  loss. The agent streams backups directly to Databasus, so the
-                  database never needs to be exposed publicly.
-                  <br />
-                  <br />
-                  Because the agent connects to the Databasus instance, you can
-                  manage incremental backups for many databases from a single
-                  dashboard — unlike standalone tools like WAL-G or pgBackRest
-                  where each database is managed separately.
+                  All of these backups can run over an SSH tunnel if you have a
+                  requirement for non-public connections, so the database never
+                  has to be exposed publicly.
                 </>
               }
             />
             <FaqItem
               number="12"
-              question="Why was Postgresus renamed to Databasus?"
-              answer={
-                <>
-                  Databasus has been developed since 2023. It was internal tool
-                  to backup production and home projects databases. In start of
-                  2025 it was released as open source project on GitHub. By the
-                  end of 2025 it became popular and the time for renaming has
-                  come in December 2025.
-                  <br />
-                  The renaming from Postgresus to Databasus was an important
-                  step for the project&apos;s growth. There are several reasons:
-                  <ol className="list-decimal list-inside mt-3 space-y-2">
-                    <li>
-                      <strong>Project evolution</strong> — Postgresus is no
-                      longer a small tool that just adds UI for pg_dump. It
-                      became a reliable backup management system for individual
-                      users, DevOps, DBAs, teams and enterprises. Tens of
-                      thousands of users use it daily. The initial positioning
-                      is no longer suitable — it&apos;s not just a UI wrapper,
-                      it&apos;s a solid backup management system now
-                    </li>
-                    <li>
-                      <strong>Multiple databases support</strong> — while the
-                      primary focus remains PostgreSQL (with 100% support in the
-                      most efficient way), the project now supports MySQL,
-                      MariaDB and MongoDB. More databases will be supported in
-                      the future
-                    </li>
-                    <li>
-                      <strong>Trademark compliance</strong> —
-                      &quot;postgres&quot; is a trademark of PostgreSQL Inc. and
-                      cannot be used in project names. For legal safety and
-                      compliance, renaming was necessary
-                    </li>
-                  </ol>
-                  <br />
-                  If you&apos;re currently using Postgresus, you can continue
-                  using it or migrate to Databasus following the installation
-                  steps. Note that simply renaming the image isn&apos;t enough,
-                  as they use different data folders and internal database
-                  naming.
-                </>
-              }
-            />
-            <FaqItem
-              number="13"
               question="How is AI used in Databasus development?"
               answer={
                 <>
@@ -1591,7 +1555,7 @@ export default function Index() {
               }
             />
             <FaqItem
-              number="14"
+              number="13"
               question="How can I join the Databasus community?"
               answer={
                 <>
@@ -1608,32 +1572,6 @@ export default function Index() {
                   . The community is a great place to ask questions, share
                   experiences, get help with configuration and stay updated with
                   the latest features and releases.
-                </>
-              }
-            />
-            <FaqItem
-              number="15"
-              question="Can I restore backups without Databasus?"
-              answer={
-                <>
-                  Yes! You can restore backups directly from storage (like S3,
-                  Google Drive, etc.) without Databasus itself. There is no
-                  vendor lock-in, even on this open source tool. With just your{" "}
-                  <code>secret.key</code> file, you can decrypt and restore any
-                  backup manually using standard database tools.
-                  <br />
-                  <br />
-                  This means if your Databasus instance is unavailable or you
-                  lose access to it, your backups remain fully recoverable. See
-                  our{" "}
-                  <a
-                    href="/how-to-recover-without-databasus"
-                    className="text-blue-400 hover:text-blue-600"
-                  >
-                    manual recovery guide
-                  </a>{" "}
-                  for detailed step-by-step instructions on how to decrypt and
-                  restore backups without Databasus.
                 </>
               }
             />
