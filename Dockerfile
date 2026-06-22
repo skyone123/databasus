@@ -63,7 +63,7 @@ ARG TARGETVARIANT
 RUN CGO_ENABLED=0 \
   GOOS=$TARGETOS \
   GOARCH=$TARGETARCH \
-  go build -o /app/main ./cmd/main.go
+  go build -o /app/main ./cmd
 
 
 # ========= BUILD VERIFICATION AGENT =========
