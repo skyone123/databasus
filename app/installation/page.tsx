@@ -21,6 +21,9 @@ export const metadata: Metadata = {
     "K8s deployment",
     "Caddy reverse proxy",
     "HTTPS setup",
+    "health check",
+    "monitoring",
+    "liveness probe",
   ],
   openGraph: {
     title: "Installation - Databasus Documentation",
@@ -108,6 +111,8 @@ sudo curl -sSL https://raw.githubusercontent.com/databasus/databasus/refs/heads/
   const caddyfile = `backup.example.com {
     reverse_proxy databasus:4005
 }`;
+
+  const healthEndpoint = `GET http://<host>:4005/api/v1/system/health`;
 
   return (
     <>
@@ -491,6 +496,61 @@ sudo curl -sSL https://raw.githubusercontent.com/databasus/databasus/refs/heads/
                   watch your first backup run!
                 </li>
               </ol>
+
+              <h2 id="health-checks">Health checks</h2>
+
+              <h3 id="docker-health-check">Docker health check</h3>
+
+              <p>
+                A built-in health check is enabled automatically for{" "}
+                <code>docker run</code> and Docker Compose. The container is
+                reported as <code>healthy</code> once Databasus is serving
+                requests (after a short start-up grace period). It checks only
+                that the app responds, so the container is not restarted for
+                non-critical conditions like low disk space.
+              </p>
+
+              <h3 id="monitoring-endpoint">Monitoring / status endpoint</h3>
+
+              <p>For uptime monitoring and status dashboards:</p>
+
+              <div className="relative my-6">
+                <pre className="overflow-x-auto rounded-lg bg-gray-900 p-4 text-sm text-gray-100">
+                  <code>{healthEndpoint}</code>
+                </pre>
+                <div className="absolute right-2 top-2">
+                  <CopyButton text={healthEndpoint} />
+                </div>
+              </div>
+
+              <p>
+                Returns <code>200</code> when healthy, or <code>503</code> with
+                a reason when something needs attention: internal database,
+                cache, disk usage (above 95%), database client tools, backup
+                scheduler and verification-agent liveness. No authentication, and
+                CORS is open for browser-based monitors.
+              </p>
+
+              <p>
+                <strong>⚠️ Important:</strong> for monitoring and alerting only,
+                not as a container or Kubernetes liveness probe &mdash; it
+                returns <code>503</code> for degraded-but-serving states (e.g. a
+                nearly full disk), which would restart a working container.
+              </p>
+
+              <h3 id="kubernetes-health-check">Kubernetes</h3>
+
+              <p>
+                Use a liveness/readiness probe that runs{" "}
+                <code>databasus healthcheck</code>; keep the{" "}
+                <a
+                  href="#monitoring-endpoint"
+                  className="text-blue-400 hover:text-blue-300"
+                >
+                  /api/v1/system/health
+                </a>{" "}
+                endpoint for external monitoring.
+              </p>
 
               <h2 id="how-to-update">How to update Databasus?</h2>
 
