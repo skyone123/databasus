@@ -1600,6 +1600,15 @@ export default function Index() {
                   backed by a large and active community.
                   <br />
                   <br />
+                  Databasus has been developed and used since 2023, and open
+                  source in widespread use since early 2025. It has been in real
+                  production use for a while, so it is battle-tested across many
+                  edge cases. Crucially, Databasus does not invent custom ways to
+                  back up your data — it relies on PostgreSQL&apos;s native,
+                  tested implementation instead of building its own workarounds
+                  for edge cases.
+                  <br />
+                  <br />
                   Our goal is to become the standard backup tool for PostgreSQL
                   from version 17 and above. Databasus is the first backup tool
                   built on PostgreSQL&apos;s native, efficient and now standard
