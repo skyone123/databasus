@@ -15,6 +15,7 @@ import (
 	"github.com/google/uuid"
 	"gorm.io/gorm"
 
+	notifier_models "databasus-backend/internal/features/notifiers/models"
 	"databasus-backend/internal/util/encryption"
 )
 
@@ -95,8 +96,7 @@ func (t *WebhookNotifier) Validate(encryptor encryption.FieldEncryptor) error {
 func (t *WebhookNotifier) Send(
 	encryptor encryption.FieldEncryptor,
 	logger *slog.Logger,
-	heading string,
-	message string,
+	notification notifier_models.Notification,
 ) error {
 	if err := t.decryptHeadersForSending(encryptor); err != nil {
 		return err
@@ -104,9 +104,9 @@ func (t *WebhookNotifier) Send(
 
 	switch t.WebhookMethod {
 	case WebhookMethodGET:
-		return t.sendGET(t.WebhookURL, heading, message, logger)
+		return t.sendGET(t.WebhookURL, notification.Heading, notification.Message, logger)
 	case WebhookMethodPOST:
-		return t.sendPOST(t.WebhookURL, heading, message, logger)
+		return t.sendPOST(t.WebhookURL, notification.Heading, notification.Message, logger)
 	default:
 		return fmt.Errorf("unsupported webhook method: %s", t.WebhookMethod)
 	}
