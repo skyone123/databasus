@@ -159,7 +159,7 @@ func Test_SubmitReport_WhenBackupRejected_SendsFailureNotification(t *testing.T)
 	sent := recorder.waitForNotification(t, 2*time.Second)
 	require.NotNil(t, sent.notifier)
 	assert.Equal(t, notifier.ID, sent.notifier.ID, "must dispatch to the database's notifier")
-	assert.Equal(t, notifier_models.NotificationTypeFailure, sent.notification.Type)
+	assert.Equal(t, notifier_models.NotificationTypeVerificationFailed, sent.notification.Type)
 	assert.Contains(t, sent.notification.Heading, database.Name, "title must name the database")
 	assert.Contains(t, sent.notification.Heading, "failed", "title must convey failure")
 	assert.Contains(t, sent.notification.Message, failMessage,
@@ -211,7 +211,7 @@ func Test_SubmitReport_WhenRestoredTooSmall_SendsFailureNotification(t *testing.
 	sent := recorder.waitForNotification(t, 2*time.Second)
 	require.NotNil(t, sent.notifier)
 	assert.Equal(t, notifier.ID, sent.notifier.ID)
-	assert.Equal(t, notifier_models.NotificationTypeFailure, sent.notification.Type)
+	assert.Equal(t, notifier_models.NotificationTypeVerificationFailed, sent.notification.Type)
 	assert.Contains(t, sent.notification.Heading, "failed", "size-guard terminal must be reported as a failure")
 	assert.Contains(t, sent.notification.Message, "less than 20%",
 		"notification body must explain why the restore was rejected")
@@ -275,7 +275,7 @@ func Test_SubmitReport_WhenAgentSetupFailedRepeatedly_SendsFailureNotificationOn
 
 	sent := recorder.waitForNotification(t, 2*time.Second)
 	assert.Equal(t, notifier.ID, sent.notifier.ID)
-	assert.Equal(t, notifier_models.NotificationTypeFailure, sent.notification.Type)
+	assert.Equal(t, notifier_models.NotificationTypeVerificationFailed, sent.notification.Type)
 	assert.Contains(t, sent.notification.Heading, "failed")
 	assert.Equal(t, 1, recorder.count(), "exactly one notification on terminal — not one per attempt")
 }
@@ -334,7 +334,7 @@ func Test_ReapStaleRuns_WhenAgentLostContact_SendsFailureNotificationOnlyAtTermi
 
 	sent := recorder.waitForNotification(t, 2*time.Second)
 	assert.Equal(t, notifier.ID, sent.notifier.ID)
-	assert.Equal(t, notifier_models.NotificationTypeFailure, sent.notification.Type)
+	assert.Equal(t, notifier_models.NotificationTypeVerificationFailed, sent.notification.Type)
 	assert.Contains(t, sent.notification.Heading, "failed")
 	assert.Contains(t, sent.notification.Message, "agent went silent")
 

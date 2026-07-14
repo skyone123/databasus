@@ -236,14 +236,14 @@ func (uc *CheckDatabaseHealthUseCase) sendDbStatusNotification(
 	}
 
 	notification := notifier_models.Notification{
-		Type:    notifier_models.NotificationTypeFailure,
+		Type:    notifier_models.NotificationTypeHealthcheckFailed,
 		Heading: fmt.Sprintf("❌ [%s] DB is unavailable", database.Name),
 		Message: fmt.Sprintf("❌ [%s] DB is currently unavailable", database.Name),
 	}
 
 	if newHealthStatus == databases.HealthStatusAvailable {
 		notification = notifier_models.Notification{
-			Type:    notifier_models.NotificationTypeSuccess,
+			Type:    notifier_models.NotificationTypeHealthcheckSuccess,
 			Heading: fmt.Sprintf("✅ [%s] DB is online", database.Name),
 			Message: fmt.Sprintf("✅ [%s] DB is back online", database.Name),
 		}

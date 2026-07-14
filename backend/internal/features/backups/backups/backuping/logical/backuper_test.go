@@ -64,7 +64,7 @@ func Test_BackupExecuted_NotificationSent(t *testing.T) {
 		mockNotificationSender.On("SendNotification",
 			mock.Anything,
 			mock.MatchedBy(func(notification notifier_models.Notification) bool {
-				return notification.Type == notifier_models.NotificationTypeFailure &&
+				return notification.Type == notifier_models.NotificationTypeBackupFailed &&
 					strings.Contains(notification.Heading, "❌ Backup failed") &&
 					strings.Contains(notification.Message, "backup failed")
 			}),
@@ -96,7 +96,7 @@ func Test_BackupExecuted_NotificationSent(t *testing.T) {
 		mockNotificationSender.On("SendNotification",
 			mock.Anything,
 			mock.MatchedBy(func(notification notifier_models.Notification) bool {
-				return notification.Type == notifier_models.NotificationTypeSuccess &&
+				return notification.Type == notifier_models.NotificationTypeBackupSuccess &&
 					strings.Contains(notification.Heading, "✅ Backup completed") &&
 					strings.Contains(notification.Message, "Backup completed successfully")
 			}),
@@ -142,7 +142,7 @@ func Test_BackupExecuted_NotificationSent(t *testing.T) {
 		mockNotificationSender.AssertExpectations(t)
 
 		// Additional detailed assertions
-		assert.Equal(t, notifier_models.NotificationTypeSuccess, capturedNotification.Type)
+		assert.Equal(t, notifier_models.NotificationTypeBackupSuccess, capturedNotification.Type)
 		assert.Contains(t, capturedNotification.Heading, "✅ Backup completed")
 		assert.Contains(t, capturedNotification.Heading, database.Name)
 		assert.Contains(t, capturedNotification.Message, "Backup completed successfully")

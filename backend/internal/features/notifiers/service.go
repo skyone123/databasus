@@ -276,7 +276,7 @@ func (s *NotifierService) SendTestNotificationToNotifier(
 
 func newTestNotification() notifier_models.Notification {
 	return notifier_models.Notification{
-		Type:    notifier_models.NotificationTypeSuccess,
+		Type:    notifier_models.NotificationTypeAll,
 		Heading: "Test message",
 		Message: "This is a test message",
 	}

@@ -301,11 +301,11 @@ func (b *Backuper) SendBackupNotification(
 		}
 
 		title := ""
-		sentNotificationType := notifier_models.NotificationTypeSuccess
+		sentNotificationType := notifier_models.NotificationTypeBackupSuccess
 
 		switch notificationType {
 		case backups_config_logical.NotificationBackupFailed:
-			sentNotificationType = notifier_models.NotificationTypeFailure
+			sentNotificationType = notifier_models.NotificationTypeBackupFailed
 			title = fmt.Sprintf(
 				"❌ Backup failed for database \"%s\" (workspace \"%s\")",
 				database.Name,

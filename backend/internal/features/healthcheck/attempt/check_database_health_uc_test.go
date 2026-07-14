@@ -21,7 +21,7 @@ import (
 
 func unavailableNotification(databaseName string) notifier_models.Notification {
 	return notifier_models.Notification{
-		Type:    notifier_models.NotificationTypeFailure,
+		Type:    notifier_models.NotificationTypeHealthcheckFailed,
 		Heading: fmt.Sprintf("❌ [%s] DB is unavailable", databaseName),
 		Message: fmt.Sprintf("❌ [%s] DB is currently unavailable", databaseName),
 	}
@@ -29,7 +29,7 @@ func unavailableNotification(databaseName string) notifier_models.Notification {
 
 func onlineNotification(databaseName string) notifier_models.Notification {
 	return notifier_models.Notification{
-		Type:    notifier_models.NotificationTypeSuccess,
+		Type:    notifier_models.NotificationTypeHealthcheckSuccess,
 		Heading: fmt.Sprintf("✅ [%s] DB is online", databaseName),
 		Message: fmt.Sprintf("✅ [%s] DB is back online", databaseName),
 	}

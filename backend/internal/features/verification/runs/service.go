@@ -692,9 +692,9 @@ func (s *VerificationService) notifyTerminal(
 
 	title, body := buildNotificationCopy(verification, database, terminalStatus, failMessage)
 
-	sentNotificationType := notifier_models.NotificationTypeSuccess
+	sentNotificationType := notifier_models.NotificationTypeVerificationSuccess
 	if wantedType == verification_config.NotificationVerificationFailed {
-		sentNotificationType = notifier_models.NotificationTypeFailure
+		sentNotificationType = notifier_models.NotificationTypeVerificationFailed
 	}
 
 	notification := notifier_models.Notification{

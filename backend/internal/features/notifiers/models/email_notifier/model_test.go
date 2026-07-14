@@ -75,7 +75,7 @@ func Test_EmailNotifierSend_WhenSmtpServerAccepts_DeliversMessageToRecipient(t *
 		encryption.GetFieldEncryptor(),
 		logger.GetLogger(),
 		notifier_models.Notification{
-			Type:    notifier_models.NotificationTypeSuccess,
+			Type:    notifier_models.NotificationTypeAll,
 			Heading: "Backup completed",
 			Message: "<b>All good</b>",
 		},

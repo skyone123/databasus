@@ -10,6 +10,7 @@ import (
 	"log/slog"
 	"net/http"
 	"net/url"
+	"slices"
 	"strings"
 
 	"github.com/google/uuid"
@@ -24,18 +25,17 @@ type WebhookHeader struct {
 	Value string `json:"value"`
 }
 
-// Before both WebhookURL, BodyTemplate and HeadersJSON were considered
-// as sensetive data and it was causing issues. Now only headers values
-// considered as sensetive data, but we try to decrypt webhook URL and
-// body template for backward combability
 type WebhookNotifier struct {
 	NotifierID    uuid.UUID     `json:"notifierId"    gorm:"primaryKey;column:notifier_id"`
 	WebhookURL    string        `json:"webhookUrl"    gorm:"not null;column:webhook_url"`
 	WebhookMethod WebhookMethod `json:"webhookMethod" gorm:"not null;column:webhook_method"`
 	BodyTemplate  *string       `json:"bodyTemplate"  gorm:"column:body_template;type:text"`
-	HeadersJSON   string        `json:"-"             gorm:"column:headers;type:text"`
 
-	Headers []WebhookHeader `json:"headers" gorm:"-"`
+	HeadersJSON string          `json:"-"       gorm:"column:headers;type:text"`
+	Headers     []WebhookHeader `json:"headers" gorm:"-"`
+
+	AcceptNotificationTypes     []notifier_models.NotificationType `json:"acceptNotificationTypes" gorm:"-"`
+	AcceptNotificationTypesJSON string                             `json:"-"                       gorm:"column:accept_notification_types;type:text"`
 }
 
 func (t *WebhookNotifier) TableName() string {
@@ -54,12 +54,31 @@ func (t *WebhookNotifier) BeforeSave(_ *gorm.DB) error {
 		t.HeadersJSON = "[]"
 	}
 
+	if len(t.AcceptNotificationTypes) == 0 {
+		t.AcceptNotificationTypes = []notifier_models.NotificationType{
+			notifier_models.NotificationTypeAll,
+		}
+	}
+
+	serializedAcceptTypes, err := json.Marshal(t.AcceptNotificationTypes)
+	if err != nil {
+		return err
+	}
+
+	t.AcceptNotificationTypesJSON = string(serializedAcceptTypes)
+
 	return nil
 }
 
 func (t *WebhookNotifier) AfterFind(_ *gorm.DB) error {
 	if t.HeadersJSON != "" {
 		if err := json.Unmarshal([]byte(t.HeadersJSON), &t.Headers); err != nil {
+			return err
+		}
+	}
+
+	if t.AcceptNotificationTypesJSON != "" {
+		if err := json.Unmarshal([]byte(t.AcceptNotificationTypesJSON), &t.AcceptNotificationTypes); err != nil {
 			return err
 		}
 	}
@@ -98,6 +117,10 @@ func (t *WebhookNotifier) Send(
 	logger *slog.Logger,
 	notification notifier_models.Notification,
 ) error {
+	if !t.isNotificationTypeAccepted(notification.Type) {
+		return nil
+	}
+
 	if err := t.decryptHeadersForSending(encryptor); err != nil {
 		return err
 	}
@@ -123,6 +146,7 @@ func (t *WebhookNotifier) Update(incoming *WebhookNotifier) {
 	t.WebhookMethod = incoming.WebhookMethod
 	t.BodyTemplate = incoming.BodyTemplate
 	t.Headers = incoming.Headers
+	t.AcceptNotificationTypes = incoming.AcceptNotificationTypes
 }
 
 func (t *WebhookNotifier) EncryptSensitiveData(encryptor encryption.FieldEncryptor) error {
@@ -138,6 +162,17 @@ func (t *WebhookNotifier) EncryptSensitiveData(encryptor encryption.FieldEncrypt
 	}
 
 	return nil
+}
+
+// NotificationTypeAll is a wildcard on both sides: on the accept-list it accepts every type, and as
+// an incoming type (carried by test notifications) it bypasses the filter so tests always deliver.
+func (t *WebhookNotifier) isNotificationTypeAccepted(notificationType notifier_models.NotificationType) bool {
+	if len(t.AcceptNotificationTypes) == 0 || notificationType == notifier_models.NotificationTypeAll {
+		return true
+	}
+
+	return slices.Contains(t.AcceptNotificationTypes, notifier_models.NotificationTypeAll) ||
+		slices.Contains(t.AcceptNotificationTypes, notificationType)
 }
 
 func (t *WebhookNotifier) sendGET(webhookURL, heading, message string, logger *slog.Logger) error {

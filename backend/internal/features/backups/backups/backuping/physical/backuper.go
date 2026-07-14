@@ -582,10 +582,10 @@ func toNotificationType(
 	backupNotificationType backups_config_physical.BackupNotificationType,
 ) notifier_models.NotificationType {
 	if backupNotificationType == backups_config_physical.NotificationBackupSuccess {
-		return notifier_models.NotificationTypeSuccess
+		return notifier_models.NotificationTypeBackupSuccess
 	}
 
-	return notifier_models.NotificationTypeFailure
+	return notifier_models.NotificationTypeBackupFailed
 }
 
 func classifyFullBackupNotification(

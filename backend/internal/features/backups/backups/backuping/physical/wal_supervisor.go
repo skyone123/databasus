@@ -329,7 +329,7 @@ func (s *PhysicalWalStreamSupervisor) gapNotifier(
 		}
 
 		notification := notifier_models.Notification{
-			Type:    notifier_models.NotificationTypeFailure,
+			Type:    notifier_models.NotificationTypeBackupFailed,
 			Heading: fmt.Sprintf("Physical WAL gap detected for %q", db.Name),
 			Message: fmt.Sprintf("database_id=%s gap=[%s, %s)", db.ID, gapStart.String(), gapEnd.String()),
 		}
